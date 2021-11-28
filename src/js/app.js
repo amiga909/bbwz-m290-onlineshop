@@ -2,6 +2,7 @@ import "purecss/build/pure-min.css";
 import "purecss/build/grids-responsive-min.css";
 import { uniq, csvToArray } from "./helpers.js";
 // https://www.db-fiddle.com/f/tJCTtC5VTJ3q1L2s2uMEQw/0
+// https://www.db-fiddle.com/f/4GW7qh9o4bAA1xZMbkLjWr/0
 const SQL1 = "INSERT INTO Hauptkategorien (Name) VALUES";
 const SQL2 = "INSERT INTO Kategorien (Name, Wert) VALUES";
 const SQL3 = "INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES";
@@ -102,8 +103,8 @@ function renderProducts() {
     let price = row["Preis"] ? row["Preis"] : "";
     price = row["Preis (CHF)"] ? row["Preis (CHF)"] : "";
     let link = row["Link"] ? row["Link"] : "";
-
-    sql += `${SQL4} ("${name}", "${Number(price)}", "${link}");<br> `;
+if(name && price) { 
+    sql += `${SQL4} ("${name}", "${Number(price)}", "${link}");<br> `;}
   });
   sqlDom.prods.innerHTML = sql;
 }
