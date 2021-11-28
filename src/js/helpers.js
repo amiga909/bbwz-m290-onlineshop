@@ -1,5 +1,4 @@
 export const csvToArray = (text) => {
-  console.log("csvToArray");
   let p = "",
     row = [""],
     ret = [row],
