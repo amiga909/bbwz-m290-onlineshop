@@ -7,7 +7,7 @@ import { uniq, csvToArray } from "./helpers.js";
 const SQL1 = "INSERT INTO Hauptkategorien (Name) VALUES";
 const SQL2 = "INSERT INTO Kategorien (Name, Wert) VALUES";
 const SQL3 = "INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES";
-const SQL4 = "INSERT INTO Produkte (Produktname, Preis, Link) VALUES";
+const SQL4 = "INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES";
 
 const MAINCAT_NAME = "Hauptkategorie";
 const ATTRIBUTES = [
@@ -21,19 +21,20 @@ let sqlDom = null;
 let HEADERS = null;
 let SETS = [];
 let CATEGORY_TUPELS = [];
+let MAIN_CATS= [];
 
 function init() {
   const csv = document.getElementById("csv");
   const result = document.getElementById("result");
+  const submit = document.getElementById("submit");
+  
 
   sqlDom = {
     mainCats: document.getElementById("mainCats"),
-    cats: document.getElementById("cats"),
-    prodCats: document.getElementById("prodCats"),
-    prods: document.getElementById("prods"),
+    
   };
 
-  csv.addEventListener("change", (e) => {
+  submit.addEventListener("click", (e) => {
     const text = csv.value;
     HEADERS = null;
     SETS = [];
@@ -70,10 +71,11 @@ function renderMainCats() {
   mainCats.forEach((m) => {
     if (m) {
       m = m.trim();
-      sql += `${SQL1} ("${m}");<br> `;
+      sql += `${SQL1} ("${m}");\n`;
+      MAIN_CATS.push(m)
     }
   });
-  sqlDom.mainCats.innerHTML = sql;
+  return sql;
 }
 
 function renderCats() {
@@ -90,12 +92,12 @@ function renderCats() {
       m = m.trim();
       if (catName && m) {
         CATEGORY_TUPELS.push({ cat: catName, value: m });
-        sql += `${SQL2} ("${catName}", "${m}");<br> `;
+        sql += `${SQL2} ("${catName}", "${m}");\n`;
       }
     });
   });
 
-  sqlDom.cats.innerHTML = sql;
+  return sql;
 }
 function renderProducts() {
   let sql = "";
@@ -106,13 +108,20 @@ function renderProducts() {
       price = row["Preis (CHF)"] ? row["Preis (CHF)"] : "";
     }
     let link = row["Link"] ? row["Link"] : "";
+    let mainCat = row["Hauptkategorie"] ? row["Hauptkategorie"] : "";
+    let mainCatId = -1; 
+    MAIN_CATS.forEach ( (mc, idx)=> {
+      if(mainCat === mc) {
+        mainCatId = idx +1; 
+      }
+    })
     if (name && price) {
       price = price.replace(/[a-z]/gi, "");
       price = price.trim();
-      sql += `${SQL4} ("${name}", "${Number(price)}", "${link}");<br> `;
+      sql += `${SQL4} ("${name}", "${Number(price)}", "${link}", ${mainCatId});\n`;
     }
   });
-  sqlDom.prods.innerHTML = sql;
+  return sql;
 }
 
 function renderProductCats() {
@@ -129,20 +138,28 @@ function renderProductCats() {
           if (tupel.cat === key && tupel.value === value) {
             //console.log(`${key}: ${value}`);
             //console.log("index", index + 1);
-            sql += `${SQL3} (${rowIndex}, ${index + 1});<br> `;
+            sql += `${SQL3} (${rowIndex}, ${index + 1});\n`;
           }
         });
       }
     }
   });
-  sqlDom.prodCats.innerHTML = sql;
+  return sql;
 }
 
 function render() {
-  renderMainCats();
-  renderCats();
-  renderProducts();
-  renderProductCats();
+  let textarea = `
+-- Hauptkategorien \n
+${renderMainCats()}
+-- Kategorien \n
+${renderCats()}
+-- Produkte \n
+${renderProducts()}
+-- Produktkategorien \n
+${renderProductCats()}
+  `;
+    
+  sqlDom.mainCats.innerHTML = textarea;
 }
 
 document.addEventListener(

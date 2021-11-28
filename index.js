@@ -62,45 +62,23 @@ app.get("/index.html", (request, response) => {
 
 app.use(express.static(__dirname + "/public"));
 
-app.get("/.well-known/assetlinks.json", (request, response) => {
-  response.sendFile(".well-known/assetlinks.json", { root: __dirname });
-});
+ 
+app.get("/csv", (request, response) => {
+  const html = fs.readFileSync(__dirname + "/public/csv.html", "utf8");
 
-app.get("/tricktionary", (request, response) => {
-  const header = fs.readFileSync(
-    __dirname + "/public/header_tricktionary.html",
-    "utf8"
-  );
-  const html = fs.readFileSync(
-    __dirname + "/public/index_no_header.html",
-    "utf8"
-  );
-  response.end(header + html);
+  response.end(html);
 });
+ 
 
-app.get("/about", (request, response) => {
-  const header = fs.readFileSync(
-    __dirname + "/public/header_about.html",
-    "utf8"
-  );
-  const html = fs.readFileSync(
-    __dirname + "/public/index_no_header.html",
-    "utf8"
-  );
-  response.end(header + html);
-});
+ 
 
-app.get("/sitemap.xml", (request, response) => {
-  response.sendFile("./sitemap.xml", { root: __dirname });
-});
+ 
 
 app.get("/robots.txt", (request, response) => {
   response.sendFile("./robots.txt", { root: __dirname });
 });
 
-app.get("/google3c4c2c0afdd9521d.html", (request, response) => {
-  response.sendFile("./google3c4c2c0afdd9521d.html", { root: __dirname });
-});
+ 
 
 /*
 app.get("/getScores", csrfProtection, (request, response) => {

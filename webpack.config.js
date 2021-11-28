@@ -27,7 +27,7 @@ module.exports = (env = {}, argv) => {
         //  { from: "src/assets", to: "assets" },
         //  { from: "src/img", to: "img" },
         //  { from: "src/fonts", to: "fonts" }, 
-
+        { from: "src/csv.html", to: "csv.html" }, 
           { from: "src/index.html", to: "index.html" }, 
         ],
       }),
