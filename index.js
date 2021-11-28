@@ -1,13 +1,13 @@
 // Require and create the Express framework
 let express = require("express");
 const fs = require("fs");
-const cookieParser = require('cookie-parser')
+const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const csrf = require('csurf')
-const DBClient = require("./srv/db-client");
+const csrf = require("csurf");
+//const DBClient = require("./srv/db-client");
 let app = express();
-const csrfProtection = csrf({ cookie: true })
-const parseForm = bodyParser.urlencoded({ extended: false })
+const csrfProtection = csrf({ cookie: true });
+const parseForm = bodyParser.urlencoded({ extended: false });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -32,40 +32,32 @@ app.use((req, res, next) => {
   }
 });
 app.use(function (req, res, next) {
-  if (req.path.substr(-1) == '/' && req.path.length > 1) {
-    let query = req.url.slice(req.path.length)
-    res.redirect(301, req.path.slice(0, -1) + query)
+  if (req.path.substr(-1) == "/" && req.path.length > 1) {
+    let query = req.url.slice(req.path.length);
+    res.redirect(301, req.path.slice(0, -1) + query);
   } else {
-    next()
+    next();
   }
-})
+});
 
 //app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
-
-
-app.get("/pwabuilder-sw.js", (request, response) => {
-  response.sendFile("./pwabuilder-sw.js", { root: __dirname });
-});
 
 /*
 app.get("/sw.js.map", (request, response) => {
   response.sendFile("public/sw.js.map", { root: __dirname });
 });*/
 
- 
-
 app.get("/", (request, response) => {
-  const header = fs.readFileSync(__dirname + "/public/header_index.html", "utf8");
-  const html = fs.readFileSync(__dirname + "/public/index_no_header.html", "utf8");
-  
-  response.end(header + html);
+  const html = fs.readFileSync(__dirname + "/public/index.html", "utf8");
+
+  response.end(html);
 });
 
 app.get("/index.html", (request, response) => {
-  const header = fs.readFileSync(__dirname + "/public/header_index.html", "utf8");
-  const html = fs.readFileSync(__dirname + "/public/index_no_header.html", "utf8");
-  response.end(header + html);
+  const html = fs.readFileSync(__dirname + "/public/index.html", "utf8");
+
+  response.end(html);
 });
 
 app.use(express.static(__dirname + "/public"));
@@ -74,19 +66,29 @@ app.get("/.well-known/assetlinks.json", (request, response) => {
   response.sendFile(".well-known/assetlinks.json", { root: __dirname });
 });
 
-
 app.get("/tricktionary", (request, response) => {
-  const header = fs.readFileSync(__dirname + "/public/header_tricktionary.html", "utf8");
-  const html = fs.readFileSync(__dirname + "/public/index_no_header.html", "utf8");
+  const header = fs.readFileSync(
+    __dirname + "/public/header_tricktionary.html",
+    "utf8"
+  );
+  const html = fs.readFileSync(
+    __dirname + "/public/index_no_header.html",
+    "utf8"
+  );
   response.end(header + html);
 });
- 
+
 app.get("/about", (request, response) => {
-  const header = fs.readFileSync(__dirname + "/public/header_about.html", "utf8");
-  const html = fs.readFileSync(__dirname + "/public/index_no_header.html", "utf8");
+  const header = fs.readFileSync(
+    __dirname + "/public/header_about.html",
+    "utf8"
+  );
+  const html = fs.readFileSync(
+    __dirname + "/public/index_no_header.html",
+    "utf8"
+  );
   response.end(header + html);
 });
- 
 
 app.get("/sitemap.xml", (request, response) => {
   response.sendFile("./sitemap.xml", { root: __dirname });
@@ -100,6 +102,7 @@ app.get("/google3c4c2c0afdd9521d.html", (request, response) => {
   response.sendFile("./google3c4c2c0afdd9521d.html", { root: __dirname });
 });
 
+/*
 app.get("/getScores", csrfProtection, (request, response) => {
   DBClient.execQuery("getScores").then((res) => {
     response.setHeader("Content-Type", "application/json");
@@ -115,7 +118,7 @@ app.get("/getHighScores", csrfProtection, (request, response) => {
     response.end(JSON.stringify(data));
   });
 });
-
+*/
 /*
 app.get("/getRank",    (request, response) => {
   DBClient.execQuery("getRank",{
@@ -125,7 +128,7 @@ app.get("/getRank",    (request, response) => {
      
     response.end(JSON.stringify(res[0]));
   });
-});*/
+});
 
 
 app.put("/saveScore", parseForm, csrfProtection, (request, response) => {
@@ -167,7 +170,7 @@ app.put("/saveHighScore", parseForm, csrfProtection, (request, response) => {
     response.end("no data");
   }
 });
-
+*/
 // Start listening on the port
 const server = app.listen(port, () => {
   console.log(
