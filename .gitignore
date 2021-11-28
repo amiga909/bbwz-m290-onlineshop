@@ -1,0 +1,6 @@
+node_modules/
+_gitignore/
+/public/
+.DS_Store
+ahrefs/
+.env

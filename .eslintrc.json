@@ -1,0 +1,23 @@
+{
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "requireConfigFile": false,
+        "sourceType": "module",
+        "allowImportExportEverywhere": false,
+        "ecmaFeatures": {
+            "jsx": false
+        }
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "curly": "error",
+        "no-console": "warn",
+        "no-debugger": "error",
+        "no-var": "error",
+        "no-lonely-if": "error"
+    },
+    "plugins": [
+      "prettier"
+    ]
+}
