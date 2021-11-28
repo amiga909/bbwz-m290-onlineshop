@@ -7,7 +7,8 @@ import { uniq, csvToArray } from "./helpers.js";
 const SQL1 = "INSERT INTO Hauptkategorien (Name) VALUES";
 const SQL2 = "INSERT INTO Kategorien (Name, Wert) VALUES";
 const SQL3 = "INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES";
-const SQL4 = "INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES";
+const SQL4 =
+  "INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES";
 
 const MAINCAT_NAME = "Hauptkategorie";
 const ATTRIBUTES = [
@@ -21,17 +22,15 @@ let sqlDom = null;
 let HEADERS = null;
 let SETS = [];
 let CATEGORY_TUPELS = [];
-let MAIN_CATS= [];
+let MAIN_CATS = [];
 
 function init() {
   const csv = document.getElementById("csv");
   const result = document.getElementById("result");
   const submit = document.getElementById("submit");
-  
 
   sqlDom = {
     mainCats: document.getElementById("mainCats"),
-    
   };
 
   submit.addEventListener("click", (e) => {
@@ -72,7 +71,7 @@ function renderMainCats() {
     if (m) {
       m = m.trim();
       sql += `${SQL1} ("${m}");\n`;
-      MAIN_CATS.push(m)
+      MAIN_CATS.push(m);
     }
   });
   return sql;
@@ -109,16 +108,18 @@ function renderProducts() {
     }
     let link = row["Link"] ? row["Link"] : "";
     let mainCat = row["Hauptkategorie"] ? row["Hauptkategorie"] : "";
-    let mainCatId = -1; 
-    MAIN_CATS.forEach ( (mc, idx)=> {
-      if(mainCat === mc) {
-        mainCatId = idx +1; 
+    let mainCatId = -1;
+    MAIN_CATS.forEach((mc, idx) => {
+      if (mainCat === mc) {
+        mainCatId = idx + 1;
       }
-    })
+    });
     if (name && price) {
       price = price.replace(/[a-z]/gi, "");
       price = price.trim();
-      sql += `${SQL4} ("${name}", "${Number(price)}", "${link}", ${mainCatId});\n`;
+      sql += `${SQL4} ("${name}", "${Number(
+        price
+      )}", "${link}", ${mainCatId});\n`;
     }
   });
   return sql;
@@ -158,7 +159,7 @@ ${renderProducts()}
 -- Produktkategorien \n
 ${renderProductCats()}
   `;
-    
+
   sqlDom.mainCats.innerHTML = textarea;
 }
 
@@ -169,3 +170,34 @@ document.addEventListener(
   },
   false
 );
+
+
+/* 
+CREATE TABLE Hauptkategorien (
+  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,  
+  Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Produkte (
+  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+  Produktname VARCHAR(512) NOT NULL,
+  Preis DECIMAL(20) NOT NULL,
+  Link VARCHAR(1024),
+  HauptkategorieID INTEGER NOT NULL,
+  FOREIGN KEY (HauptkategorieID) REFERENCES Hauptkategorien(ID),
+);
+
+CREATE TABLE Kategorien (
+  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,  
+  Name VARCHAR(255) NOT NULL,
+  Wert VARCHAR(255) NOT NULL 
+);
+
+CREATE TABLE Produkte_Kategorien (
+  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  ProduktID INTEGER NOT NULL, 
+  KategorieID INTEGER NOT NULL,
+  FOREIGN KEY (ProduktID) REFERENCES Produkte(ID),
+  FOREIGN KEY (KategorieID) REFERENCES Kategorien(ID)
+);
+ */
