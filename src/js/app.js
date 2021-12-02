@@ -3,6 +3,8 @@ import "purecss/build/grids-responsive-min.css";
 import { uniq, csvToArray } from "./helpers.js";
 
 // https://www.db-fiddle.com/f/hqB88D35VLwXB1nGHUySoG/1
+// https://www.db-fiddle.com/f/5G1MN95MogMu1XRVZUckFa/0
+// https://www.db-fiddle.com/f/ac9zBqYGmTtg6nZG7aHkD3/0
 
 const SQL1 = "INSERT INTO Hauptkategorien (Name) VALUES";
 const SQL2 = "INSERT INTO Kategorien (Name, Wert) VALUES";
@@ -13,8 +15,7 @@ const SQL4 =
 const MAINCAT_NAME = "Hauptkategorie";
 const ATTRIBUTES = [
   "Produktname",
-  "Preis",
-  "Preis (CHF)",
+  "Preis", 
   MAINCAT_NAME,
   "Link",
 ];
@@ -23,6 +24,9 @@ let HEADERS = null;
 let SETS = [];
 let CATEGORY_TUPELS = [];
 let MAIN_CATS = [];
+let PRODUCT_COUNT = 0; 
+
+
 
 function init() {
   const csv = document.getElementById("csv");
@@ -38,6 +42,10 @@ function init() {
     HEADERS = null;
     SETS = [];
     CATEGORY_TUPELS = [];
+    MAIN_CATS = [];
+    PRODUCT_COUNT = 0; 
+
+
     parse(csvToArray(text));
     render();
   });
@@ -108,13 +116,10 @@ function renderProducts() {
     }
     let link = row["Link"] ? row["Link"] : "";
     let mainCat = row["Hauptkategorie"] ? row["Hauptkategorie"] : "";
-    let mainCatId = -1;
-    MAIN_CATS.forEach((mc, idx) => {
-      if (mainCat === mc) {
-        mainCatId = idx + 1;
-      }
-    });
-    if (name && price) {
+    let mainCatId = MAIN_CATS.indexOf(mainCat) + 1;
+    //console.log("name", name, "cat",mainCatId, "s", mainCat);
+    if (name && price && mainCatId) {
+      PRODUCT_COUNT = PRODUCT_COUNT + 1;
       price = price.replace(/[a-z]/gi, "");
       price = price.trim();
       sql += `${SQL4} ("${name}", "${Number(
@@ -161,6 +166,32 @@ ${renderProductCats()}
   `;
 
   sqlDom.mainCats.innerHTML = textarea;
+  validate();
+}
+
+function validate() {
+  let msgs = [];
+  //console.log( SETS,"sets")
+  if(HEADERS[0] !== ATTRIBUTES[0]) {
+    msgs.push(`Die erste Spalte muss ${ATTRIBUTES[0]} heissen.`)
+  }
+  if(HEADERS[1] !== ATTRIBUTES[1]) {
+    msgs.push( `Die zweite Spalte muss ${ATTRIBUTES[1]} heissen.`)
+  }
+  if(HEADERS[2] !== ATTRIBUTES[2]) {
+    msgs.push( `Die zweite Spalte muss ${ATTRIBUTES[2]} heissen.`)
+  }
+  if(PRODUCT_COUNT < 30) {
+    msgs.push( `Die Tabelle Produkte hat weniger als 30 Zeilen (${PRODUCT_COUNT}).`)
+  }
+  if(msgs.length) {
+    let html = "Es sind Fehler aufgetreten: </br>" + msgs.join("</br>");
+    document.getElementById("errorMsg").innerHTML = html; 
+  }
+  else {
+    document.getElementById("errorMsg").innerHTML = ""; 
+  }
+  
 }
 
 document.addEventListener(
@@ -172,14 +203,14 @@ document.addEventListener(
 );
 
 
-/* 
+/*
 CREATE TABLE Hauptkategorien (
-  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,  
+  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
   Name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Produkte (
-  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
   Produktname VARCHAR(512) NOT NULL,
   Preis DECIMAL(20) NOT NULL,
   Link VARCHAR(1024),
@@ -188,14 +219,14 @@ CREATE TABLE Produkte (
 );
 
 CREATE TABLE Kategorien (
-  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,  
+  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
   Name VARCHAR(255) NOT NULL,
-  Wert VARCHAR(255) NOT NULL 
+  Wert VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Produkte_Kategorien (
   ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  ProduktID INTEGER NOT NULL, 
+  ProduktID INTEGER NOT NULL,
   KategorieID INTEGER NOT NULL,
   FOREIGN KEY (ProduktID) REFERENCES Produkte(ID),
   FOREIGN KEY (KategorieID) REFERENCES Kategorien(ID)

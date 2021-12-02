@@ -65,7 +65,14 @@ app.use(express.static(__dirname + "/public"));
  
 app.get("/csv", (request, response) => {
   const html = fs.readFileSync(__dirname + "/public/csv.html", "utf8");
+  response.end(html);
+});
 
+
+app.get("/hauptseite", (request, response) => {
+  // connect to DB 
+  
+  const html = fs.readFileSync(__dirname + "/public/csv.html", "utf8");
   response.end(html);
 });
  
