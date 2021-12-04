@@ -1,6 +1,6 @@
- 
+
 import { uniq, csvToArray } from "./helpers.js";
- 
+
 // https://www.db-fiddle.com/f/hqB88D35VLwXB1nGHUySoG/1
 // https://www.db-fiddle.com/f/5G1MN95MogMu1XRVZUckFa/0
 // https://www.db-fiddle.com/f/ac9zBqYGmTtg6nZG7aHkD3/0
@@ -63,13 +63,13 @@ function parse(data) {
     }
     let row = {};
     HEADERS.forEach((h, index1) => {
-       
-      if(d[index1]) {
-      row[h] = d[index1].trim().replace('"', "").replace("'", "");
-     }
-     else {
-      console.error("d",d, "d[index1]",d[index1])
-     }
+
+      if (d[index1]) {
+        row[h] = d[index1].trim().replace('"', "").replace("'", "");
+      }
+      else {
+        console.error("parse headers:", d, d[index1])
+      }
     });
     SETS.push(row);
   });
@@ -109,7 +109,7 @@ function renderCats() {
         sql += `${SQL2} ("${catName}", "${m}");\n`;
       }
       else {
-        console.error("catName",catName, "m",m)
+        console.error("renderCats", catName, m)
       }
     });
   });
@@ -124,11 +124,11 @@ function renderProducts() {
     if (!price) {
       price = row["Preis (CHF)"] ? row["Preis (CHF)"] : "";
     }
-   
+
     let link = row["Link"] ? row["Link"] : "";
     let mainCat = row["Hauptkategorie"] ? row["Hauptkategorie"] : "";
     let mainCatId = MAIN_CATS.indexOf(mainCat) + 1;
-   
+
     if (name && price && mainCatId) {
       PRODUCT_COUNT = PRODUCT_COUNT + 1;
       price = price.replace(/[^0-9.]/g, '');
@@ -179,7 +179,7 @@ ${renderProductCats()}
 
 function validate() {
   let msgs = [];
- console.log(HEADERS);
+
   if (!HEADERS.join(",").includes("Produktname,")) {
     msgs.push(`- Die erste Zeile im CSV müssen die Spalten der Tabelle sein.`)
   }
@@ -196,7 +196,7 @@ function validate() {
   if (PRODUCT_COUNT < 30) {
     msgs.push(`- Die Tabelle Produkte hat weniger als 30 Zeilen (${PRODUCT_COUNT}).`)
   }
-  if(new Set(HEADERS).size !== HEADERS.length) {
+  if (new Set(HEADERS).size !== HEADERS.length) {
     msgs.push(`- Jeder Spaltenname darf nur einmal vorkommen.`)
   }
   if (msgs.length) {
