@@ -44,11 +44,16 @@ export default function init() {
     CATEGORY_TUPELS = [];
     MAIN_CATS = [];
     PRODUCT_COUNT = 0;
-
-
     parse(csvToArray(text));
-
     render();
+  });
+
+
+  document.getElementById("copy").addEventListener("click", (e) => {
+   console.log("click")
+    sqlDom.mainCats.select();
+       document.execCommand('copy');
+     
   });
 }
 
@@ -68,7 +73,7 @@ function parse(data) {
         row[h] = d[index1].trim().replace('"', "").replace("'", "");
       }
       else {
-        console.error("parse headers:", d, d[index1])
+        //console.error("parse headers:", d, d[index1])
       }
     });
     SETS.push(row);
@@ -109,7 +114,7 @@ function renderCats() {
         sql += `${SQL2} ("${catName}", "${m}");\n`;
       }
       else {
-        console.error("renderCats", catName, m)
+        //console.error("renderCats", catName, m)
       }
     });
   });

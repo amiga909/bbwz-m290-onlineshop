@@ -4,12 +4,16 @@
       <title>Produktliste to SQL</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
       <meta name="Description" CONTENT="">
+      <meta charset="utf-8">
       <link rel="stylesheet" href="app.css" />
       <link rel="stylesheet" href="style.min.css" />
       <script src="app.js"></script>
       <link rel="icon" type="image/png" href="assets/img/favicon.png"/>
    </head>
    <body id="page_csv">
+      <div class="header">
+         Modul 290: Datenbanken abfragen und verändern (BBWZ, SJ 21/22)
+      </div>
       <h1>Produktliste Excel to SQL Konverter</h1>
       <h3>  1) Produktliste als CSV exportieren und als Text einf&uuml;gen.</h3>
       <ul> 
@@ -23,7 +27,7 @@
       </ul>
      
       <br>
-      <textarea rows="15" cols="150" id="csv"> </textarea>
+      <textarea rows="20" cols="150" id="csv"> </textarea>
       <br> 
       <button 
          class="pure-button pure-button-primary pure-button-primary-nav" 
@@ -35,11 +39,15 @@
          id="reset">Reset
       </button>
       <br>  <br> <br>
-      <div style="color:red;"id="errorMsg"></div>
+      <div id="errorMsg"></div>
       <br>
       <h3>
       2) SQL kopieren und in db-fiddle einf&uuml;gen.</h4>
-      <textarea rows="15" cols="150" class="sqlResult" id="mainCats"></textarea>
-      <script></script>
+      <textarea rows="20" cols="150" class="sqlResult" id="mainCats"></textarea>
+      
+      <button 
+         class="pure-button pure-button-primary pure-button-primary-nav" 
+         id="copy">Copy to Clipboard
+      </button>
    </body>
-</html>
+</html> 
