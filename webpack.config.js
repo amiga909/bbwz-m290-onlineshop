@@ -37,19 +37,6 @@ module.exports = (env = {}, argv) => {
       publicPath: "",
       filename: "./[name].js",
     },
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          vendor: {
-            chunks: "initial",
-            name: "vendor",
-            test: /[\\/]node_modules[\\/]/,
-            // enforce: true
-          },
-        },
-      },
-      runtimeChunk: false,
-    },
     devtool: "source-map",
 
     module: {
