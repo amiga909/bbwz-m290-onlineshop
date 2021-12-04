@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Online Shops</title>
+      <title>Produktliste to SQL</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
       <meta name="Description" CONTENT="">
       <meta charset="utf-8">
@@ -10,12 +10,20 @@
       <script src="app.js"></script>
       <link rel="icon" type="image/png" href="assets/img/favicon.png"/>
    </head>
-   <body>
+   <body id="sql_import">
       <div class="header">
          Modul 290: Datenbanken abfragen und verändern (BBWZ, SJ 21/22)
       </div>
-      <h1>Online Shops</h1>
-      <h3></h3>
-      <br>
+      <h1>SQL importieren</h1>
+       
+      Löscht die Datenbank. 
+      <textarea rows="20" cols="150" id="csv"> </textarea>
+      <br> 
+      <button 
+         class="pure-button pure-button-primary pure-button-primary-nav" 
+         id="submit">Datenbank initialisieren
+      </button>
+ 
+
    </body>
-</html>
+</html> 

@@ -49,10 +49,11 @@ export default function init() {
 
 
   document.getElementById("copy").addEventListener("click", (e) => {
-
-    sqlResult.select();
-    document.execCommand('copy');
-
+    try {
+      sqlResult.select();
+      document.execCommand('copy');
+    }
+    catch(e) {}
   });
 }
 

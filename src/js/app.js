@@ -11,6 +11,12 @@ document.addEventListener(
     if (document.getElementById("page_csv")) {
       initCSV();
     }
+    else if (document.getElementById("sql_import")) {
+
+    }
+    else {
+      // index
+    }
   },
   false
 );
