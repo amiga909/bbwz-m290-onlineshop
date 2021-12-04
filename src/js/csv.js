@@ -32,13 +32,12 @@ export default function init() {
   const csv = document.getElementById("csv");
   const result = document.getElementById("result");
   const submit = document.getElementById("submit");
+  const sqlResult = document.getElementById("sqlResult")
 
-  sqlDom = {
-    mainCats: document.getElementById("mainCats"),
-  };
 
   submit.addEventListener("click", (e) => {
     const text = csv.value;
+   
     HEADERS = null;
     SETS = [];
     CATEGORY_TUPELS = [];
@@ -50,10 +49,10 @@ export default function init() {
 
 
   document.getElementById("copy").addEventListener("click", (e) => {
-   console.log("click")
-    sqlDom.mainCats.select();
-       document.execCommand('copy');
-     
+
+    sqlResult.select();
+    document.execCommand('copy');
+
   });
 }
 
@@ -178,7 +177,7 @@ ${renderProducts()}
 ${renderProductCats()}
   `;
 
-  sqlDom.mainCats.innerHTML = textarea;
+  sqlResult.innerHTML = textarea;
   validate();
 }
 
@@ -198,8 +197,8 @@ function validate() {
   if (HEADERS[2] !== ATTRIBUTES[2]) {
     msgs.push(`- Die dritte Spalte muss ${ATTRIBUTES[2]} heissen.`)
   }
-  if (PRODUCT_COUNT < 30) {
-    msgs.push(`- Die Tabelle Produkte hat weniger als 30 Zeilen (${PRODUCT_COUNT}).`)
+  if (PRODUCT_COUNT < 5) {
+    msgs.push(`- Die Tabelle Produkte hat zu wenig Zeilen (${PRODUCT_COUNT}).`)
   }
   if (new Set(HEADERS).size !== HEADERS.length) {
     msgs.push(`- Jeder Spaltenname darf nur einmal vorkommen.`)
@@ -207,6 +206,7 @@ function validate() {
   if (msgs.length) {
     let html = "Es sind Fehler aufgetreten: </br>" + msgs.join("</br>");
     document.getElementById("errorMsg").innerHTML = html;
+    sqlResult.innerHTML = "";
   }
   else {
     document.getElementById("errorMsg").innerHTML = "";
