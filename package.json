@@ -56,13 +56,10 @@
   },
   "scripts": {
     "start": "node ./index.js",
-    "build": "rm -rf public/build/*; node_modules/.bin/webpack --mode production",
-    "dev": "rm -rf public/build/*; webpack --mode development --watch",
-    "dev-sw": "rm -rf public/build/*; webpack --mode development && npm run build-sw",
-    "build-sw": "node_modules/.bin/workbox generateSW workbox-config.js",
+    "build": "rm -rf public/*; node_modules/.bin/webpack --mode production",
+    "dev": "rm -rf public/*; webpack --mode development --watch",
     "lint": "node_modules/.bin/eslint ./src/js --fix --ext .js;",
     "lint-srv": "node_modules/.bin/eslint ./srv --fix --ext .js && node_modules/.bin/eslint index.js --fix --ext .js;",
-    "heroku-postbuild": "npm run build",
     "resetDB": "node srv/resetDB.js"
   },
   "author": "RH",
