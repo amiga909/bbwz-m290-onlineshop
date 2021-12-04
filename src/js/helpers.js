@@ -1,4 +1,5 @@
 export const csvToArray = (text) => {
+  text = text.replace(/;/g, ",");
   let p = "",
     row = [""],
     ret = [row],

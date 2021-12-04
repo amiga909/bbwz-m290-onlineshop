@@ -1,7 +1,7 @@
 {
-  "name": "GTG",
+  "name": "m290",
   "version": "1.0.0",
-  "description": "web app for aggressive inline grind tricks",
+  "description": "web app for m290",
   "main": "app/app.js",
   "engines": {
     "node": "v14.13.*",
@@ -12,6 +12,7 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
+    "csvtojson": "^2.0.10",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jquery": "^3.6.0",

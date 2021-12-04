@@ -3,39 +3,43 @@
    <head>
       <title>Produktliste to SQL</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-      <meta name="Description" CONTENT=""> 
-
+      <meta name="Description" CONTENT="">
       <link rel="stylesheet" href="vendor.css" />
       <link rel="stylesheet" href="style.min.css" />
-      
       <script src="app.js"></script>
       <link rel="icon" type="image/png" href="img/favicon.png"/>
-      </head>
-   <body>
-   <h1>Produktliste Excel to SQL Converter</h1>
+   </head>
+   <body id="page_csv">
+      <h1>Produktliste Excel to SQL Konverter</h1>
+      <h3>  1) Produktliste als CSV exportieren und als Text einf&uuml;gen.</h3>
+      <ul> 
+         <li> Trennsymbol ist das Kommazeichen (,) oder der Strichpunkt (;)</li>
+         <li> Die erste Zeile im CSV m&uuml;ssen die Namen der Spalten sein</li>
+         <li> Die ersten drei Spalten heissen: Produktname, Preis, Hauptkategorie </li>
+         <li> Die letzte Spalte heisst: Link</li>
+         <li> Spalte Preis: nur Zahlen</li>
+         <li>  <a href="/assets/vorlage-produktliste.csv"> Beispiel CSV</a></li>
+        
+      </ul>
+     
+      <br>
+      <textarea rows="15" cols="150" id="csv"> </textarea>
+      <br> 
+      <button 
+         class="pure-button pure-button-primary pure-button-primary-nav" 
+         id="submit">CSV konvertieren
+      </button>
 
-   <h3>  1) Produktliste als CSV exportieren und als Text einf&uuml;gen.</h3>
-   
-<br>
-
-   <textarea rows="15" cols="100" id="csv"> </textarea>
-   <br> 
-   <button 
-   class="pure-button pure-button-primary pure-button-primary-nav" 
-   id="submit">CSV konvertieren 
-</button>
-
-   <br>  <br> <br>
-   <div style="color:red;"id="errorMsg"></div>
-   <br>
-   <h3>2) SQL kopieren und in db-fiddle einf&uuml;gen.</h4>
- 
-<textarea rows="15" cols="100" class="sqlResult" id="mainCats"></textarea>
- 
-
-   <script>
-
-
-   </script>
+      <button onclick="javascript:location.reload();"
+         class="pure-button pure-button-primary pure-button-primary-nav" 
+         id="reset">Reset
+      </button>
+      <br>  <br> <br>
+      <div style="color:red;"id="errorMsg"></div>
+      <br>
+      <h3>
+      2) SQL kopieren und in db-fiddle einf&uuml;gen.</h4>
+      <textarea rows="15" cols="150" class="sqlResult" id="mainCats"></textarea>
+      <script></script>
    </body>
 </html>

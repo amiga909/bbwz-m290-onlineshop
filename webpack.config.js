@@ -11,7 +11,7 @@ module.exports = (env = {}, argv) => {
   let config = {
     context: path.resolve(__dirname, "./"),
     entry: {
-      app: ["./src/js/app.js", "./src/css/style.scss"],
+      app: ["./src/js/app.js","./src/css/style.scss"],
     },
     plugins: [
       new MiniCssExtractPlugin({}),
@@ -24,7 +24,7 @@ module.exports = (env = {}, argv) => {
       // for injectManifest
       new CopyPlugin({
         patterns: [
-        //  { from: "src/assets", to: "assets" },
+          { from: "src/assets", to: "assets" },
         //  { from: "src/img", to: "img" },
         //  { from: "src/fonts", to: "fonts" }, 
         { from: "src/csv.html", to: "csv.html" }, 
