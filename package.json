@@ -56,7 +56,7 @@
   },
   "scripts": {
     "start": "node ./index.js",
-    "build": "rm -rf public/*; node_modules/.bin/webpack --mode production",
+    "build": "rm -rf public/build/*; node_modules/.bin/webpack --mode production",
     "dev": "rm -rf public/build/*; webpack --mode development --watch",
     "dev-sw": "rm -rf public/build/*; webpack --mode development && npm run build-sw",
     "build-sw": "node_modules/.bin/workbox generateSW workbox-config.js",
