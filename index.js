@@ -78,7 +78,7 @@ app.get("/robots.txt", (request, response) => {
 
 
 
-/*
+ 
 app.get("/getScores", csrfProtection, (request, response) => {
   DBClient.execQuery("getScores").then((res) => {
     response.setHeader("Content-Type", "application/json");
@@ -87,7 +87,7 @@ app.get("/getScores", csrfProtection, (request, response) => {
   });
 });
 
-*/
+ 
 
 
 const server = app.listen(port, () => {

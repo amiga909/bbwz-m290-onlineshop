@@ -1,82 +1,30 @@
 let mysql = require("mysql");
+const fs = require('fs')
+const path = require('path')
 
 if (process.env.APP_ENV !== "prod") {
   require("dotenv").config();
 }
+const sql = fs.readFileSync(path.resolve(__dirname, 'sql1.sql'), 'utf8');
+
 const DB_CONN = process.env.CLEARDB_DATABASE_URL;
-const con = mysql.createConnection(DB_CONN);
+const connection = mysql.createConnection({
+  host: 'eu-cdbr-west-01.cleardb.com',
+  user: 'beff578ce34624',
+  password: 'a0e7c751',
+  database: 'heroku_f590b77cf0d1850',
+  debug: false,
+  multipleStatements: true
+});
+connection.connect();
 
-con.connect((err) => {
+connection.query(sql, [[]], (err, result) => {
   if (err) {
+    connection.end();
     throw err;
+    //reject();
   }
-  console.log("Connected!");
-  let sql1 = `
-  DROP TABLE IF EXISTS highscores;
-  `;
-  let sql2 = ` CREATE TABLE highscores (
-    ID int NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL, 
-    ip VARCHAR(255) NOT NULL, 
-    score INT NOT NULL,level VARCHAR(255) NOT NULL, 
-    data TEXT,
-    ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
-  );
-  `;
-
-  let sql3 = `
-  DROP TABLE IF EXISTS scores;
-  `;
-  let sql4 = `
-  CREATE TABLE scores (
-    ID int NOT NULL AUTO_INCREMENT,
-    ip VARCHAR(255) NOT NULL, 
-    score INT NOT NULL,level VARCHAR(255) NOT NULL, 
-    data TEXT,
-    ts TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
-  ); 
-  `;
-  let sql5 = `
-  INSERT INTO scores (ip, score, data) VALUES("::1",2, "{}" );
-  `;
-  let sql6 = `
-  INSERT INTO highscores (name, ip, score, data) VALUES("test", "::1",2, "{}" );
-  `;
-  con.query(sql1, function (err, result) {
-    if (err) {
-      throw err;
-    }
-    //console.log("Result: " + JSON.stringify(result));
-    con.query(sql2, (err, result) => {
-      if (err) {
-        throw err;
-      }
-      //console.log("Result: " + JSON.stringify(result));
-      con.query(sql3, (err, result) => {
-        if (err) {
-          throw err;
-        }
-        //  console.log("Result: " + JSON.stringify(result));
-        con.query(sql4, (err, result) => {
-          if (err) {
-            throw err;
-          }
-          con.query(sql5, (err, result) => {
-            if (err) {
-              throw err;
-            }
-            con.query(sql6, (err, result) => {
-              if (err) {
-                throw err;
-              }
-              console.log("Result: " + JSON.stringify(result));
-              con.destroy();
-            });
-          });
-        });
-      });
-    });
-  });
+  // console.log("query res", sql, result)
+  console.log(result);
+  connection.end();
 });

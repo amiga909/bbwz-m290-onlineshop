@@ -8,7 +8,7 @@ let con = mysql.createPool(DB_CONN);
 
 const QUERIES = {
   // WHERE ip != "::1"
-  getScores: `SELECT * from scores  ORDER BY ts DESC  LIMIT 50;`,
+  getScores: `SELECT * from hauptkategorien;`,
   saveScore: `INSERT INTO scores SET ?;`,
   getHighScores: `SELECT * from highscores ORDER BY score DESC, ts DESC  LIMIT 10;`,
   saveHighScore: `INSERT INTO highscores SET ?;`,
