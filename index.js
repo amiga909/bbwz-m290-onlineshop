@@ -16,9 +16,13 @@ const port = process.env.PORT || process.env.VCAP_APP_PORT || 3099;
 app.enable("trust proxy");
 
 app.use((req, res, next) => {
-  if (req.secure === false && app.get("env") !== "development") {
+ if (req.secure === false && app.get("env") !== "development") {
     res.redirect("https://" + req.headers.host + req.url);
   } else {
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+  
     next();
   }
 });
