@@ -12,7 +12,9 @@
    </head>
    <body>
       <script>
-         fetch("https://bbwz-m290-onlineshop.herokuapp.com/getScores");
+         fetch("cors-anywhere.herokuapp.com/https://bbwz-m290-onlineshop.herokuapp.com/getScores").then( (res)=> {
+            console.log(res);
+         });
       </script>
       <div class="header">
          Modul 290: Datenbanken abfragen und verändern (BBWZ, SJ 21/22)

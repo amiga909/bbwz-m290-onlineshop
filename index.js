@@ -4,6 +4,8 @@ const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const csrf = require("csurf");
+const cors = require('cors')
+
 const DBClient = require("./srv/db-client");
 let app = express();
 const csrfProtection = csrf({ cookie: true });
@@ -34,6 +36,8 @@ app.use((req, res, next) => {
     next();
   }
 });
+
+app.use(cors())
 
 //app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(bodyParser.json());
