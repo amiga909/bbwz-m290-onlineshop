@@ -47,7 +47,7 @@ function getData() {
 
 
 function renderData(data) {
-  const prettyJson = JSON.stringify(data, null, 2);
+  
   if (data && data[1]) {
     data[1].forEach((d) => {
       console.log(d)

@@ -55,7 +55,8 @@ export default function init() {
 
 
 function renderData(data) {
-  const prettyJson = JSON.stringify(data, null, 2);
+  let msgs = data[1] ?  data[1] : data; 
+  const prettyJson = JSON.stringify(msgs, null, 2);
 
   document.getElementById("result").innerHTML = prettyJson;
 }
