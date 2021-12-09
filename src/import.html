@@ -15,52 +15,43 @@
          Modul 290: Datenbanken abfragen und verändern (BBWZ, SJ 21/22)
       </div>
       <h1>SQL Datenbank Import</h1>
-
-<h3>Datenbank</h3>
-Gruppenname:
-<select name="groups" id="groupSelect">
-   <option value="teacher">teacher</option>
-   <option value="al1">al1</option>
-   <option value="al2">al2</option>
-   <option value="al3">al3</option>
-   <option value="al4">al4</option>
-   <option value="al5">al5</option>
-   <option value="al6">al6</option>
-   <option value="al7">al7</option>
-   <option value="al8">al8</option>
-   <option value="al9">al9</option>
-   <option value="al10">al10</option>
-   <option value="b1">b1</option>
-   <option value="b2">b2</option>
-   <option value="b3">b3</option>
-   <option value="b4">b4</option>
-  
-   <option value="c1">c1</option>
-   <option value="c2">c2</option>
-   <option value="c3">c3</option>
-   <option value="c4">c4</option>
-   <option value="c5">c5</option>
- </select>
-
+      <h3>Datenbank</h3>
+      Gruppenname:
+      <select name="groups" id="groupSelect">
+         <option value="teacher">teacher</option>
+         <option value="al1">al1</option>
+         <option value="al2">al2</option>
+         <option value="al3">al3</option>
+         <option value="al4">al4</option>
+         <option value="al5">al5</option>
+         <option value="al6">al6</option>
+         <option value="al7">al7</option>
+         <option value="al8">al8</option>
+         <option value="al9">al9</option>
+         <option value="al10">al10</option>
+         <option value="b1">b1</option>
+         <option value="b2">b2</option>
+         <option value="b3">b3</option>
+         <option value="b4">b4</option>
+         <option value="c1">c1</option>
+         <option value="c2">c2</option>
+         <option value="c3">c3</option>
+         <option value="c4">c4</option>
+         <option value="c5">c5</option>
+      </select>
       &nbsp;&nbsp;&nbsp; Passwort: <input id="pw" type="text"> 
       <h3>SQL</h3>
-   <textarea placeholder='-- Tabellen anzeigen
-SELECT table_name AS Tabelle, table_rows AS Zeilen 
-FROM information_schema.tables
-WHERE table_schema !="information_schema";' rows="20" cols="150" id="sql"></textarea>
-<br>
-   <button 
-   class="pure-button pure-button-primary pure-button-primary-nav" 
-   id="submit">SQL absenden
-   </button>
-    
-         <br>
-         <h3>Resultat</h3>
-   
+      <textarea placeholder='-- Tabellen anzeigen
+         SELECT table_name AS Tabelle, table_rows AS Zeilen 
+         FROM information_schema.tables
+         WHERE table_schema !="information_schema";' rows="20" cols="150" id="sql"></textarea>
+      <br>
+      <button 
+         class="pure-button pure-button-primary pure-button-primary-nav" 
+         id="submit">SQL absenden
+      </button>
+      <br>
+      <h3>Resultat</h3>
       <pre id="result"> </pre>
-   
-
-
-
    </body>
-</html> 
+</html>
