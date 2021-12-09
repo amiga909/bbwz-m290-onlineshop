@@ -55,7 +55,7 @@ function renderData(data) {
       const linkText = document.createTextNode(d.Name);
       a.appendChild(linkText);
       a.title = d.Name;
-      a.href = "/" + d.Name;
+      a.href = `maincat/?group=${group.value}&cat=${d.Name}`;
       a.innerHTML += "<br>";
       document.getElementById("result").appendChild(a);
     })

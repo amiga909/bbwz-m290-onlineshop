@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-const CopyPlugin = require("copy-webpack-plugin"); 
+const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const outputPath = "public/";
@@ -20,17 +20,15 @@ module.exports = (env = {}, argv) => {
         jQuery: "jquery",
         "window.jQuery": "jquery",
       }),
-     
+
       // for injectManifest
       new CopyPlugin({
         patterns: [
           { from: "src/assets", to: "assets" },
-        
-        //  { from: "src/img", to: "img" },
-        //  { from: "src/fonts", to: "fonts" }, 
-        { from: "src/csv.html", to: "csv.html" }, 
-        { from: "src/import.html", to: "import.html" }, 
-          { from: "src/index.html", to: "index.html" }, 
+          { from: "src/csv.html", to: "csv.html" },
+          { from: "src/import.html", to: "import.html" },
+          { from: "src/maincat.html", to: "maincat.html" },
+          { from: "src/index.html", to: "index.html" },
         ],
       }),
     ],
@@ -127,28 +125,7 @@ module.exports = (env = {}, argv) => {
             },
           ],
         },
-       /* {
-          test: /\.(html)$/,
-          use: {
-            loader: "html-loader",
-            options: {
-              
-              attributes: {root: 'public',
-                list: [
-                  {
-                    tag: "img",
-                    attribute: "src",
-                    type: "src",
-                  },
-                   
-                ],
-                urlFilter: (attribute, value, resourcePath) => {
-                  //console.log(value)
-                },
-              },
-            },
-          },
-        },*/
+        
       ],
     },
   };

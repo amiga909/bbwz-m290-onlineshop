@@ -59,6 +59,10 @@ app.get("/import", (request, response) => {
   const html = fs.readFileSync(__dirname + "/public/import.html", "utf8");
   response.end(html);
 });
+app.get("/maincat", (request, response) => {
+  const html = fs.readFileSync(__dirname + "/public/maincat.html", "utf8");
+  response.end(html);
+});
 
 
 /*
