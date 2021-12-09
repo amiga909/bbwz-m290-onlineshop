@@ -1,30 +1,25 @@
 // Require and create the Express framework
 let express = require("express");
 const fs = require("fs");
-const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const csrf = require("csurf");
 const cors = require('cors')
 
 const DBClient = require("./srv/db-client");
 let app = express();
-const csrfProtection = csrf({ cookie: true });
-const parseForm = bodyParser.urlencoded({ extended: false });
+app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
 const port = process.env.PORT || process.env.VCAP_APP_PORT || 3099;
 
 app.enable("trust proxy");
 
 app.use((req, res, next) => {
- if (req.secure === false && app.get("env") !== "development") {
+  if (req.secure === false && app.get("env") !== "development") {
     res.redirect("https://" + req.headers.host + req.url);
   } else {
     res.header("Access-Control-Allow-Credentials", true);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  
+
     next();
   }
 });
@@ -39,13 +34,7 @@ app.use((req, res, next) => {
 
 app.use(cors())
 
-//app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(bodyParser.json());
 
-/*
-app.get("/sw.js.map", (request, response) => {
-  response.sendFile("public/sw.js.map", { root: __dirname });
-});*/
 
 app.get("/", (request, response) => {
   const html = fs.readFileSync(__dirname + "/public/index.html", "utf8");
@@ -66,13 +55,39 @@ app.get("/csv", (request, response) => {
   const html = fs.readFileSync(__dirname + "/public/csv.html", "utf8");
   response.end(html);
 });
+app.get("/import", (request, response) => {
+  const html = fs.readFileSync(__dirname + "/public/import.html", "utf8");
+  response.end(html);
+});
 
 
+/*
 app.get("/hauptseite", (request, response) => {
   // connect to DB 
 
   const html = fs.readFileSync(__dirname + "/public/csv.html", "utf8");
   response.end(html);
+});
+
+*/
+
+app.post("/sql", (request, response) => {
+  const data = request.body;
+  console.log("data", request.body)
+ 
+  if (data.group && data.sql) {
+    const pw = data.pw ? data.pw : "";
+    DBClient.execQuery(  data.group, data.sql, pw).then((res) => {
+      response.setHeader("Content-Type", "application/json");
+      response.end(JSON.stringify(res));
+    }).catch( (err)=> {
+      response.json({ error: err })
+      
+    });
+  }
+  else {
+    response.json({ error: "invalid params" }) 
+  }
 });
 
 
@@ -81,21 +96,13 @@ app.get("/hauptseite", (request, response) => {
 
 
 app.get("/robots.txt", (request, response) => {
-  response.sendFile("./robots.txt", { root: __dirname });
+  //response.sendFile("./robots.txt", { root: __dirname });
 });
 
 
-
  
-app.get("/getScores", csrfProtection, (request, response) => {
-  DBClient.execQuery("getScores").then((res) => {
-    response.setHeader("Content-Type", "application/json");
-    const data = { scores: res, csrfToken: request.csrfToken() }
-    response.end(JSON.stringify(data));
-  });
-});
 
- 
+
 
 
 const server = app.listen(port, () => {

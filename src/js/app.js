@@ -3,7 +3,7 @@ import "purecss/build/grids-responsive-min.css";
 import "../css/style.scss";
 
 import initCSV from './csv.js';
-
+import initCustomPage from './custom.js';
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -11,8 +11,8 @@ document.addEventListener(
     if (document.getElementById("page_csv")) {
       initCSV();
     }
-    else if (document.getElementById("sql_import")) {
-
+    else if (document.getElementById("groups")) {
+      initCustomPage();
     }
     else {
       // index

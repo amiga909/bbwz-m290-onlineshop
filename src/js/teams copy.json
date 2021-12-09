@@ -1,0 +1,25 @@
+﻿{
+    "al1": {
+        "name": "blue", 
+        "host": "eu-cdbr-west-01.cleardb.com",
+        "user": "beff578ce34624",
+        "password": "a0e7c751",
+        "database": "heroku_f590b77cf0d1850"},
+    "Gruppe2": {"PW": "sdfsdfds"},
+    "Gruppe3": {"PW": "sdfsdfds"}
+},
+
+CLEARDB_BLUE_URL:     mysql://b66e34613f8b35:08174d6b@eu-cdbr-west-01.cleardb.com/heroku_815d414bf58646b?reconnect=true
+CLEARDB_BRONZE_URL:   mysql://b18f0fbb286eb8:d317aac8@eu-cdbr-west-01.cleardb.com/heroku_e5627098f08b443?reconnect=true
+CLEARDB_CYAN_URL:     mysql://b6bb07702aa9af:b96c770c@eu-cdbr-west-01.cleardb.com/heroku_d97f1371b760328?reconnect=true
+CLEARDB_DATABASE_URL: mysql://beff578ce34624:a0e7c751@eu-cdbr-west-01.cleardb.com/heroku_f590b77cf0d1850?reconnect=true
+CLEARDB_GOLD_URL:     mysql://b92aa6f9c8704a:2b0557e9@eu-cdbr-west-01.cleardb.com/heroku_092022631beb552?reconnect=true
+CLEARDB_JADE_URL:     mysql://b5c887fee8be6f:bcd0a491@eu-cdbr-west-01.cleardb.com/heroku_b88118a2330cf9a?reconnect=true
+CLEARDB_MAROON_URL:   mysql://bc8fedf593fec4:703faefc@eu-cdbr-west-01.cleardb.com/heroku_9bc62d47f4953c3?reconnect=true
+CLEARDB_MAUVE_URL:    mysql://b6bd9e334cc66d:c9e544ec@eu-cdbr-west-01.cleardb.com/heroku_871eb7583b74ec5?reconnect=true
+CLEARDB_ONYX_URL:     mysql://b297b39f1fe3b1:df1c85f2@eu-cdbr-west-01.cleardb.com/heroku_848b563e240d659?reconnect=true
+CLEARDB_PINK_URL:     mysql://b17f99977d065e:b5609549@eu-cdbr-west-01.cleardb.com/heroku_56fa16d44fda6e1?reconnect=true
+CLEARDB_RED_URL:      mysql://b149ccabb7df17:92bbb63a@eu-cdbr-west-01.cleardb.com/heroku_e98431f71a8c44b?reconnect=true
+CLEARDB_ROSE_URL:     mysql://ba2f44293c3371:6c332a71@eu-cdbr-west-01.cleardb.com/heroku_465ad9351dcca75?reconnect=true
+CLEARDB_SILVER_URL:   mysql://b428f7808b9f7a:92eae610@eu-cdbr-west-01.cleardb.com/heroku_0be6690238cfa5c?reconnect=true
+CLEARDB_TEAL_URL:     mysql://b46e655cd6ebbc:9ab2bc35@eu-cdbr-west-01.cleardb.com/heroku_bc3a4b3b2bbc3b6?reconnect=true

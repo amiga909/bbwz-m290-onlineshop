@@ -1,70 +1,57 @@
-let mysql = require("mysql");
-
+const mysql = require("mysql");
+const parseDbUrl = require("parse-database-url");
+const dbConfig = require("./groups.json");
 if (process.env.APP_ENV !== "prod") {
   require("dotenv").config();
 }
-const DB_CONN = process.env.CLEARDB_DATABASE_URL;
-let con = mysql.createPool(DB_CONN);
 
-const QUERIES = {
-  // WHERE ip != "::1"
-  getScores: `SELECT * from hauptkategorien;`,
-  saveScore: `INSERT INTO scores SET ?;`,
-  getHighScores: `SELECT * from highscores ORDER BY score DESC, ts DESC  LIMIT 10;`,
-  saveHighScore: `INSERT INTO highscores SET ?;`,
-  getRank: `SELECT score, FIND_IN_SET( score, (    
-    SELECT GROUP_CONCAT( score
-    ORDER BY score DESC ) 
-    FROM highscores )
-    ) AS rank
-    FROM highscores
-    WHERE score = _SCORE_ `,
-};
-const connect = async function () {
-  if (con.state === "disconnected") {
-    con.connect();
-  }
-};
+const setAutoIncrement = "SET @@auto_increment_increment=1;"
 
-con.on("error", (err) => {
-  console.error("db error", err);
-  console.error("db error code", err.code);
-  throw err;
-});
 
-const execQuery = (query = "", params = null) => {
-  let parameters = [];
+const execQuery = (group, sql, pw) => {
+  const parameters = [];
+
   return new Promise((resolve, reject) => {
-    connect().then(() => {
-      let result = null;
-      let sql = QUERIES[query];
-      if (query === "saveScore") {
-        parameters = {
-          ip: params.ip,
-          score: params.score,
-          data: JSON.stringify(params.data),
-        };
-      } else if (query === "saveHighScore") {
-        parameters = {
-          name: params.name,
-          ip: params.ip,
-          score: params.score,
-          data: JSON.stringify(params.data),
-        };
-      } else if (query === "getRank") {
-        sql = sql.replace("_SCORE_", Number(params.score));
-      }
+    const config = dbConfig[group]
+    if (!config) {
+      reject("db config missing for " + group);
+    }
 
-      //console.log("sql", sql);
-      con.query(sql, [parameters], (err, result) => {
-        if (err) {
-          throw err;
-          //reject();
-        }
-        // console.log("query res", sql, result)
-        resolve(result);
-      });
+    const parsedConfig = parseDbUrl(dbConfig[group].con);
+    parsedConfig.multipleStatements = true;
+    const isValid = pw === parsedConfig.password; 
+    console.log("parsedConfig",parsedConfig, pw)
+    if(!isValid) {
+      console.log("parsedConfig",parsedConfig)
+      reject("invalid password")
+    }
+    const connection = mysql.createConnection(parsedConfig);
+    connection.connect();
+    connection.on("error", (err) => {
+      console.error("db error", err);
+      console.error("db error code", err.code);
+      try {
+        connection.end();
+      }
+      catch (e) {
+        reject(e);
+      }
+      connection.connect();
     });
+
+    connection.query(setAutoIncrement + sql, [parameters], (err, result) => {
+      if (err) {
+        try {
+          connection.end();
+        }
+        catch (e) {
+          reject(e);
+        }
+        reject(err);
+      }
+      resolve(result);
+    });
+
   });
 };
 
@@ -72,4 +59,4 @@ module.exports = {
   execQuery,
 };
 
- 
+
