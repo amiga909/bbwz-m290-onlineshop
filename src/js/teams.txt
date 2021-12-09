@@ -1,13 +1,4 @@
-﻿{
-    "al1": {
-        "name": "blue", 
-        "host": "eu-cdbr-west-01.cleardb.com",
-        "user": "beff578ce34624",
-        "password": "a0e7c751",
-        "database": "heroku_f590b77cf0d1850"},
-    "Gruppe2": {"PW": "sdfsdfds"},
-    "Gruppe3": {"PW": "sdfsdfds"}
-},
+﻿ 
 
 CLEARDB_BLUE_URL:     mysql://b66e34613f8b35:08174d6b@eu-cdbr-west-01.cleardb.com/heroku_815d414bf58646b?reconnect=true
 CLEARDB_BRONZE_URL:   mysql://b18f0fbb286eb8:d317aac8@eu-cdbr-west-01.cleardb.com/heroku_e5627098f08b443?reconnect=true

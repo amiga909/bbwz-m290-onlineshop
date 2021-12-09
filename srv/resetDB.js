@@ -22,7 +22,6 @@ connection.query(sql, [[]], (err, result) => {
     throw err;
     //reject();
   }
-  // console.log("query res", sql, result)
-  console.log(result);
+
   connection.end();
 });

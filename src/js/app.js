@@ -4,6 +4,7 @@ import "../css/style.scss";
 
 import initCSV from './csv.js';
 import initCustomPage from './custom.js';
+import initHomePage from './home.js';
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -13,6 +14,10 @@ document.addEventListener(
     }
     else if (document.getElementById("groups")) {
       initCustomPage();
+    }
+    else if (document.getElementById("homepage")) {
+      
+      initHomePage();
     }
     else {
       // index
