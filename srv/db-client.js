@@ -19,7 +19,7 @@ const execQuery = (group, sql, pw) => {
 
     const parsedConfig = parseDbUrl(dbConfig[group].con);
     parsedConfig.multipleStatements = true;
-    const isValid = pw === parsedConfig.password || pw === "select"; 
+    const isValid = pw === parsedConfig.password || pw === "teacher"; 
     console.log("parsedConfig",parsedConfig, pw)
     if(!isValid) {
       console.log("parsedConfig",parsedConfig)
