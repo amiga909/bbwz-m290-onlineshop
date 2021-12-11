@@ -56,7 +56,9 @@ export default function init() {
 
 function renderData(data) {
   // move first to last 
-   data.push(data.shift());;
+  if (data && data[1]) {
+    data.push(data.shift());
+  }
   const prettyJson = JSON.stringify(data, null, 2);
 
   document.getElementById("result").innerHTML = prettyJson;
