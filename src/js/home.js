@@ -1,4 +1,7 @@
 let group = null;
+ 
+
+
 export default function init() {
   group = document.getElementById("groupSelect")
 
@@ -21,7 +24,7 @@ function getData() {
   document.getElementById("result").innerHTML = "";
 
   const sql = "SELECT * FROM Hauptkategorien;"
-  const data = { group: group.value, sql: sql, pw: "select" }
+  const data = { group: group.value, query: "Hauptkategorien" }
   group.disabled = true;
   // https://bbwz-m290-onlineshop.herokuapp.com/sql
   fetch("/sql",

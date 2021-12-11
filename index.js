@@ -77,20 +77,23 @@ app.get("/hauptseite", (request, response) => {
 
 app.post("/sql", (request, response) => {
   const data = request.body;
-  console.log("data", request.body)
- 
-  if (data.group && data.sql) {
+  console.log("/sql data", request.body)
+
+  if (data.group) {
     const pw = data.pw ? data.pw : "";
-    DBClient.execQuery(  data.group, data.sql, pw).then((res) => {
+    const query = data.query ? data.query : "";
+    const customSql = data.sql ? data.sql : "";
+     
+    DBClient.execQuery(data.group, customSql, pw, query).then((res) => {
       response.setHeader("Content-Type", "application/json");
       response.end(JSON.stringify(res));
-    }).catch( (err)=> {
+    }).catch((err) => {
       response.json({ error: err })
-      
+
     });
   }
   else {
-    response.json({ error: "invalid params" }) 
+    response.json({ error: "invalid params" })
   }
 });
 
@@ -104,7 +107,7 @@ app.get("/robots.txt", (request, response) => {
 });
 
 
- 
+
 
 
 

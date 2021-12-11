@@ -4,13 +4,15 @@ const dbConfig = require("./groups.json");
 if (process.env.APP_ENV !== "prod") {
   require("dotenv").config();
 }
-
 const setAutoIncrement = "SET @@auto_increment_increment=1;"
 
+const QUERIES = {
+  "Hauptkategorien": "SELECT * FROM Hauptkategorien;"
+}
 
-const execQuery = (group, sql, pw) => {
+const execQuery = (group, sql = "", pw = "", queryTpe = "") => {
   const parameters = [];
-
+  console.log("execQuery", "group", group, "sql", sql, "pw", pw, "queryTpe", queryTpe)
   return new Promise((resolve, reject) => {
     const config = dbConfig[group]
     if (!config) {
@@ -19,10 +21,20 @@ const execQuery = (group, sql, pw) => {
 
     const parsedConfig = parseDbUrl(dbConfig[group].con);
     parsedConfig.multipleStatements = true;
-    const isValid = pw === parsedConfig.password || (process.env.MASTER_PW && pw === process.env.MASTER_PW);
-    if (!isValid) {
-      reject("invalid password")
+    // logik: wenn querytyoe, dann kein passwort 
+    if (queryTpe && QUERIES[queryTpe]) {
+      sql = QUERIES[queryTpe];
     }
+
+    else {
+      const isValid = pw === parsedConfig.password || pw === process.env.MASTER_PW;
+      if (!isValid) {
+        reject("invalid password")
+      }
+    }
+
+
+
     const connection = mysql.createConnection(parsedConfig);
     connection.connect();
     connection.on("error", (err) => {
@@ -36,7 +48,7 @@ const execQuery = (group, sql, pw) => {
       }
       connection.connect();
     });
-
+    console.log("query req", sql)
     connection.query(setAutoIncrement + sql, [parameters], (err, result) => {
       if (err) {
         try {
@@ -45,8 +57,13 @@ const execQuery = (group, sql, pw) => {
         catch (e) {
           reject(e);
         }
+        if(err.sql) {
+          err.sql = err.sql.replace(setAutoIncrement, "");
+        }
+        console.log("reject(err)",  (err))
         reject(err);
       }
+      console.log("query res", result)
       resolve(result);
     });
 
