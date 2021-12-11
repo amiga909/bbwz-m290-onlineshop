@@ -19,10 +19,8 @@ const execQuery = (group, sql, pw) => {
 
     const parsedConfig = parseDbUrl(dbConfig[group].con);
     parsedConfig.multipleStatements = true;
-    const isValid = pw === parsedConfig.password || pw === "teacher"; 
-    console.log("parsedConfig",parsedConfig, pw)
-    if(!isValid) {
-      console.log("parsedConfig",parsedConfig)
+    const isValid = pw === parsedConfig.password || (process.env.MASTER_PW && pw === process.env.MASTER_PW);
+    if (!isValid) {
       reject("invalid password")
     }
     const connection = mysql.createConnection(parsedConfig);

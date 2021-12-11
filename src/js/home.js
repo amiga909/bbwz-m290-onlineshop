@@ -50,7 +50,6 @@ function renderData(data) {
   
   if (data && data[1]) {
     data[1].forEach((d) => {
-      console.log(d)
       const a = document.createElement('a');
       const linkText = document.createTextNode(d.Name);
       a.appendChild(linkText);
