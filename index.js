@@ -64,16 +64,12 @@ app.get("/maincat", (request, response) => {
   response.end(html);
 });
 
-
-/*
-app.get("/hauptseite", (request, response) => {
-  // connect to DB 
-
-  const html = fs.readFileSync(__dirname + "/public/csv.html", "utf8");
+app.get("/produkt", (request, response) => {
+  const html = fs.readFileSync(__dirname + "/public/produkt.html", "utf8");
   response.end(html);
 });
 
-*/
+ 
 
 app.post("/sql", (request, response) => {
   const data = request.body;
@@ -97,20 +93,12 @@ app.post("/sql", (request, response) => {
   }
 });
 
-
-
-
-
-
+ 
 app.get("/robots.txt", (request, response) => {
   //response.sendFile("./robots.txt", { root: __dirname });
 });
 
-
-
-
-
-
+ 
 
 const server = app.listen(port, () => {
   console.log(

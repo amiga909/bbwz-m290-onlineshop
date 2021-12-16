@@ -10,14 +10,15 @@
       <script src="app.js"></script>
       <link rel="icon" type="image/png" href="assets/img/favicon.png"/>
    </head>
-   <body id="maincat">
+   <body id="produkt">
       <div class="header">
          Modul 290: Datenbanken abfragen und verändern (BBWZ, SJ 21/22)
       </div>
       <a href="/">Home</a> <br>
+      <a id="backToCat" href="#">Zurück zur Hauptkategorie</a> <br>
        
 
-      <h1 id="Hauptkategorie_name">Hauptkategorie</h1>
+      <h1 id="Produkt_name">Detailansicht </h1>
       <h3>Datenbank</h3>
       Gruppenname:
       <select name="groups" id="groupSelect">
@@ -44,22 +45,14 @@
       </select>
       &nbsp;&nbsp;&nbsp; Passwort: <input id="pw" type="text"> 
       <h3>SQL</h3>
-      <textarea placeholder='-- Alle Produkte in dieser Hauptkategorie
-SELECT * FROM Produkte WHERE HauptkategorieID = $hauptkategorie_id;' rows="5" cols="150" id="sql"></textarea>
+      <textarea placeholder='-- Alte Spalten von Produkt für die ID
+SELECT * FROM Produkte WHERE Produktname = $produktname;' rows="5" cols="150" id="sql"></textarea>
       <br>
-<p>
-   Aufgabe:
-   Der Kunde will alle Produkte der Hauptkategorie sehen. Mit Spalten wie ID oder HauptkategorieID kann er nichts anfangen.
-   Verbessern Sie die Ausgabe. <br>
-   Verwenden Sie die Variable $hauptkategorie_id in ihrer Abfrage wie im Beispiel. $hauptkategorie_id gibt ihnen die ID der zuvor angeklickten Hauptkategorie.
-<br>
-   1) Geben Sie folgende Spalten aus: Produktname, Preis und Link<br>
-   2) Jeder Produktname darf nur einmal erscheinen. 
-   Verwenden Sie DISTINCT oder GROUP BY, damit jeder Produktname nur einmal erscheint. <br>
- 
-
-</p>
-      <br>
+      <p>
+         Aufgabe: coming soon. 
+          
+   
+      </p>
       <button 
          class="pure-button pure-button-primary pure-button-primary-nav" 
          id="submit">SQL absenden

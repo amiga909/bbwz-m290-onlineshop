@@ -28,6 +28,7 @@ module.exports = (env = {}, argv) => {
           { from: "src/csv.html", to: "csv.html" },
           { from: "src/import.html", to: "import.html" },
           { from: "src/maincat.html", to: "maincat.html" },
+          { from: "src/produkt.html", to: "produkt.html" },
           { from: "src/index.html", to: "index.html" },
         ],
       }),

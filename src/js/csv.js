@@ -1,11 +1,6 @@
 
 import { uniq, csvToArray } from "./helpers.js";
 
-// https://www.db-fiddle.com/f/hqB88D35VLwXB1nGHUySoG/1
-// https://www.db-fiddle.com/f/5G1MN95MogMu1XRVZUckFa/0
-// https://www.db-fiddle.com/f/ac9zBqYGmTtg6nZG7aHkD3/0
-
-
 const SQL1 = "INSERT INTO Hauptkategorien (Name) VALUES";
 const SQL2 = "INSERT INTO Kategorien (Name, Wert) VALUES";
 const SQL3 = "INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES";
@@ -37,7 +32,7 @@ export default function init() {
 
   submit.addEventListener("click", (e) => {
     const text = csv.value;
-   
+
     HEADERS = null;
     SETS = [];
     CATEGORY_TUPELS = [];
@@ -53,7 +48,7 @@ export default function init() {
       sqlResult.select();
       document.execCommand('copy');
     }
-    catch(e) {}
+    catch (e) { }
   });
 }
 
@@ -214,57 +209,3 @@ function validate() {
   }
 
 }
-
-
-
-
-/*
-CREATE TABLE Hauptkategorien (
-  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  Name VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE Produkte (
-  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  Produktname VARCHAR(512) NOT NULL,
-  Preis DECIMAL(20) NOT NULL,
-  Link VARCHAR(1024),
-  HauptkategorieID INTEGER NOT NULL,
-  FOREIGN KEY (HauptkategorieID) REFERENCES Hauptkategorien(ID),
-);
-
-CREATE TABLE Kategorien (
-  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  Name VARCHAR(255) NOT NULL,
-  Wert VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE Produkte_Kategorien (
-  ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  ProduktID INTEGER NOT NULL,
-  KategorieID INTEGER NOT NULL,
-  FOREIGN KEY (ProduktID) REFERENCES Produkte(ID),
-  FOREIGN KEY (KategorieID) REFERENCES Kategorien(ID)
-);
- */
-
-
-/*
-
-
- SELECT Produkte.Produktname, Produkte.Preis, Hauptkategorien.Name FROM Produkte, Hauptkategorien
-  WHERE  Produkte.HauptkategorieID = Hauptkategorien.ID
-ORDER BY Hauptkategorien.Name ASC;
-
-
-SELECT
-  Produkte.ID,
-    Produkte.Produktname,
-    Produkte.Preis,
-    GROUP_CONCAT(DISTINCT Kategorien.Wert ORDER BY Kategorien.Name ASC SEPARATOR ', ' ) AS "Beschreibung"
-FROM Produkte, Kategorien, Produkte_Kategorien, Hauptkategorien
-WHERE Produkte.ID = Produkte_Kategorien.ProduktID AND
-    Kategorien.ID = Produkte_Kategorien.KategorieID
-GROUP BY Produkte.ID;
-
-*/

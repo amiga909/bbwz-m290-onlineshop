@@ -1,7 +1,6 @@
+ 
 let group = null;
  
-
-
 export default function init() {
   group = document.getElementById("groupSelect")
 
@@ -23,7 +22,7 @@ export default function init() {
 function getData() {
   document.getElementById("result").innerHTML = "";
 
-  const sql = "SELECT * FROM Hauptkategorien;"
+  // SELECT * FROM Hauptkategorien;
   const data = { group: group.value, query: "Hauptkategorien" }
   group.disabled = true;
   // https://bbwz-m290-onlineshop.herokuapp.com/sql
@@ -57,7 +56,8 @@ function renderData(data) {
       const linkText = document.createTextNode(d.Name);
       a.appendChild(linkText);
       a.title = d.Name;
-      a.href = `maincat/?group=${group.value}&cat=${d.Name}`;
+      let id = d.ID ? d.ID : d.HauptkategorienID
+      a.href = `maincat/?group=${group.value}&hauptkategorie_name=${d.Name}&hauptkategorie_id=${id}`;
       a.innerHTML += "<br>";
       document.getElementById("result").appendChild(a);
     })
