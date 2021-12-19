@@ -54,8 +54,11 @@ SELECT * FROM Produkte WHERE HauptkategorieID = $hauptkategorie_id;' rows="5" co
    Verwenden Sie die Variable $hauptkategorie_id in ihrer Abfrage wie im Beispiel. $hauptkategorie_id gibt ihnen die ID der zuvor angeklickten Hauptkategorie.
 <br>
    1) Geben Sie folgende Spalten aus: Produktname, Preis und Link<br>
-   2) Jeder Produktname darf nur einmal erscheinen. 
-   Verwenden Sie DISTINCT oder GROUP BY, damit jeder Produktname nur einmal erscheint. <br>
+   2) Kontrollieren Sie, ob jeder Produktname nur einmal aufgelistet wird. 
+   Es darf keine Duplikate haben. <br>
+   3) Jeder Produktname darf nur einmal erscheinen. 
+   Geben Sie den Preis so aus, dass der günstigste Preis erscheint. <br>
+   Verwenden Sie GROUP BY und MIN. <br>
  
 
 </p>

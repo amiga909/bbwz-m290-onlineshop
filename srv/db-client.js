@@ -48,22 +48,22 @@ const execQuery = (group, sql = "", pw = "", queryTpe = "") => {
       }
       connection.connect();
     });
-    console.log("query req", sql)
+
     connection.query(setAutoIncrement + sql, [parameters], (err, result) => {
       if (err) {
         try {
+
           connection.end();
         }
         catch (e) {
           reject(e);
         }
-        if(err.sql) {
+        if (err.sql) {
           err.sql = err.sql.replace(setAutoIncrement, "");
         }
-        console.log("reject(err)",  (err))
         reject(err);
       }
-      console.log("query res", result)
+      connection.end();
       resolve(result);
     });
 
