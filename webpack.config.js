@@ -25,11 +25,8 @@ module.exports = (env = {}, argv) => {
       new CopyPlugin({
         patterns: [
           { from: "src/assets", to: "assets" },
-          { from: "src/csv.html", to: "csv.html" },
-          { from: "src/import.html", to: "import.html" },
-          { from: "src/maincat.html", to: "maincat.html" },
-          { from: "src/produkt.html", to: "produkt.html" },
-          { from: "src/index.html", to: "index.html" },
+          { from: "src/*.html", to: "./" },
+         
         ],
       }),
     ],

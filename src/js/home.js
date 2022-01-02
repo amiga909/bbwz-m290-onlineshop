@@ -1,6 +1,5 @@
- 
 let group = null;
- 
+
 export default function init() {
   group = document.getElementById("groupSelect")
 
@@ -25,7 +24,6 @@ function getData() {
   // SELECT * FROM Hauptkategorien;
   const data = { group: group.value, query: "Hauptkategorien" }
   group.disabled = true;
-  // https://bbwz-m290-onlineshop.herokuapp.com/sql
   fetch("/sql",
     {
       headers: {
@@ -49,7 +47,7 @@ function getData() {
 
 
 function renderData(data) {
-  
+  //console.log(data, " Kategorien, Kategorien, Kategorien,")
   if (data && data[1]) {
     data[1].forEach((d) => {
       const a = document.createElement('a');
@@ -64,6 +62,54 @@ function renderData(data) {
   }
   else {
     document.getElementById("result").innerHTML = "Keine Daten vorhanden";
+  }
+
+  if (data && data[2]) {
+    const values = ["dog", "cat", "parrot", "rabbit"];
+
+    const filters = {};
+    data[2].forEach((d) => {
+      filters[d.Name] = [];
+    })
+    data[2].forEach((d) => {
+      filters[d.Name].push(d.Wert);
+    })
+    console.log(filters)
+    for (let category in filters) {
+      const label = document.createElement("label");
+      label.innerHTML = category
+      label.htmlFor = category;
+      const select = document.createElement("select");
+      select.name = category;
+      select.id = category;
+
+      filters[category].forEach((val) => {
+        const option = document.createElement("option");
+        option.value = val;
+        option.text = val;
+        select.appendChild(option);
+      })
+     // document.getElementById("result").appendChild(label).appendChild(select)
+    }
+
+    /*
+    const labels = []; // all unique keys 
+    const values =
+ 
+    for (const val of values)
+    {
+        var option = document.createElement("option");
+        option.value = val;
+        option.text = val.charAt(0).toUpperCase() + val.slice(1);
+        select.appendChild(option);
+    }
+ 
+    var label = document.createElement("label");
+    label.innerHTML = "Choose your pets: "
+    label.htmlFor = "pets";
+ 
+    document.getElementById("container").appendChild(label).appendChild(select);
+    */
   }
 
 

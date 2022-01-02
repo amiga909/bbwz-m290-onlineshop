@@ -7,12 +7,12 @@ if (process.env.APP_ENV !== "prod") {
 const setAutoIncrement = "SET @@auto_increment_increment=1;"
 
 const QUERIES = {
-  "Hauptkategorien": "SELECT * FROM Hauptkategorien;"
+  "Hauptkategorien": "SELECT * FROM Hauptkategorien; SELECT * FROM Kategorien;"
 }
 
 const execQuery = (group, sql = "", pw = "", queryTpe = "") => {
   const parameters = [];
-  console.log("execQuery", "group", group, "sql", sql, "pw", pw, "queryTpe", queryTpe)
+  //console.log("execQuery", "group", group, "sql", sql, "pw", pw, "queryTpe", queryTpe)
   return new Promise((resolve, reject) => {
     const config = dbConfig[group]
     if (!config) {
@@ -52,7 +52,6 @@ const execQuery = (group, sql = "", pw = "", queryTpe = "") => {
     connection.query(setAutoIncrement + sql, [parameters], (err, result) => {
       if (err) {
         try {
-
           connection.end();
         }
         catch (e) {
@@ -66,12 +65,23 @@ const execQuery = (group, sql = "", pw = "", queryTpe = "") => {
       connection.end();
       resolve(result);
     });
-
   });
+};
+
+const getGroupData = (pw = "") => {
+  let result = null;
+  const groups = Object.keys(dbConfig);
+  groups.forEach( (g)=> {
+    if(dbConfig[g].con.includes(":" + pw + "@")) {
+      result = {group: g, con: dbConfig[g].con, name: dbConfig[g].name, class: dbConfig[g].class };
+    }
+  })
+  return result;
 };
 
 module.exports = {
   execQuery,
+  getGroupData
 };
 
 

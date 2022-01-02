@@ -1,40 +1,42 @@
-export default function init() {
+import renderData from './sql-renderer'
 
+let resultPane;
+const METRICS_SQL = `SELECT table_name AS Tabelle, table_rows AS "Anzahl Zeilen", create_time as Erstellungsdatum
+FROM information_schema.tables
+WHERE table_schema !="information_schema";`
+
+export default function init() {
   const submit = document.getElementById("submit");
   const group = document.getElementById("groupSelect")
   const sqlTextarea = document.getElementById("sql");
   const pw = document.getElementById("pw");
-
+  resultPane = document.getElementById("result");
+  if (localStorage.getItem("group")) {
+    group.value = localStorage.getItem("group")
+  }
+  if (localStorage.getItem("pw")) {
+    pw.value = localStorage.getItem("pw")
+  }
+  const metricsSql = { group: group.value, sql: METRICS_SQL, pw: pw.value }
 
 
   submit.addEventListener("click", () => {
-    document.getElementById("result").innerHTML = "";
 
-    let sql = sqlTextarea.value;
-    if (!sql) {
-      sql = sqlTextarea.placeholder;
-    }
-    const data = { group: group.value, sql: sql, pw: pw.value }
+    const customSql = { group: group.value, sql: sqlTextarea.value, pw: pw.value }
     submit.disabled = true
-    // https://bbwz-m290-onlineshop.herokuapp.com/sql
-    fetch("/sql",
-      {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(data)
-      })
-      .then((res) => { return res.json(); })
-      .then((data) => {
-        submit.disabled = false
-        renderData(data);
-      })
-      .catch((res) => {
-        submit.disabled = false;
-        console.error(res)
-      })
+    const results = []
+    fetchSql(customSql).then((customResult) => {
+      fetchSql(metricsSql).then((metricsResult) => {
+        if (customResult.error) {
+          renderData(customResult, "", resultPane)
+        }
+        else {
+          renderData(metricsResult, metricsSql.sql, resultPane)
+        }
+
+
+      });
+    })
   })
 
   group.addEventListener("change", () => {
@@ -43,23 +45,32 @@ export default function init() {
   pw.addEventListener("change", () => {
     localStorage.setItem("pw", pw.value)
   })
-  if (localStorage.getItem("group")) {
-    group.value = localStorage.getItem("group")
-  }
-  if (localStorage.getItem("pw")) {
-    pw.value = localStorage.getItem("pw")
 
-  }
+  fetchSql(metricsSql).then((metricsResult) => {
+    renderData(metricsResult, metricsSql.sql, resultPane)
+  });;
 }
 
+function fetchSql(payload) {
+  resultPane.innerHTML = "";
+  return fetch("/sql",
+    {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(payload)
+    })
+    .then((res) => { return res.json(); })
+    .then((data) => {
+      submit.disabled = false
+      return data;
+    })
+    .catch((res) => {
+      submit.disabled = false;
+      console.error(res)
+    })
 
-
-function renderData(data) {
-  // move first to last 
-  if (data && data[1]) {
-    data.push(data.shift());
-  }
-  const prettyJson = JSON.stringify(data, null, 2);
-
-  document.getElementById("result").innerHTML = prettyJson;
 }
+

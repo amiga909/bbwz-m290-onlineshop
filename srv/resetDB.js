@@ -8,8 +8,6 @@ if (process.env.APP_ENV !== "prod") {
 }
 const sql = fs.readFileSync(path.resolve(__dirname, 'sql1.sql'), 'utf8');
 
-
-
 const dbConfig = parseDbUrl(process.env.CLEARDB_DATABASE_URL);
 dbConfig.multipleStatements = true; 
 const DB_CONN = process.env.CLEARDB_DATABASE_URL;
@@ -20,7 +18,6 @@ connection.query(sql, [[]], (err, result) => {
   if (err) {
     connection.end();
     throw err;
-    //reject();
   }
 
   connection.end();

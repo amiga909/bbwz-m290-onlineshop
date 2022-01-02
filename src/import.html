@@ -16,9 +16,11 @@
       </div>
       <a href="/">Home</a> <br>
       <a href="/csv">Excel to SQL</a> <br>
-      <a href="/import">Database Import</a>
+      <a href="/import">Database Manager</a>
 
-      <h1>SQL Datenbank Import</h1>
+      <h1>Database Manager</h1>
+      
+        
       <h3>Datenbank</h3>
       Gruppenname:
       <select name="groups" id="groupSelect">
@@ -45,17 +47,15 @@
       </select>
       &nbsp;&nbsp;&nbsp; Passwort: <input id="pw" type="text"> 
       <h3>SQL</h3>
-      <textarea placeholder='-- Tabellen anzeigen
-SELECT table_name AS Tabelle, table_rows AS Zeilen 
-FROM information_schema.tables
-WHERE table_schema !="information_schema";' rows="20" cols="150" id="sql"></textarea>
+      <textarea placeholder='-- Beispiel für Tabelle löschen: DROP TABLE kategorien; 
+' rows="20" cols="150" id="sql"></textarea>
       <br>
       <button 
          class="pure-button pure-button-primary pure-button-primary-nav" 
          id="submit">SQL absenden
       </button>
       <br>
-      <h3>Resultat</h3>
+      <h3>Datenbank Übersicht</h3>
       <pre id="result"> </pre>
    </body>
 </html>
