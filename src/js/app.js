@@ -15,7 +15,7 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
     if (document.getElementById("login")) {
-      initLogin();
+      initLogin(getSearchParameters());
     }
     else if (document.getElementById("page_csv")) {
       initCSV();

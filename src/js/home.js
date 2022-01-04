@@ -1,29 +1,22 @@
-let group = null;
+let groupValue = null;
 
 export default function init() {
-  group = document.getElementById("groupSelect")
+  groupValue = document.body.getAttribute("data-group"); 
+  let className = document.body.getAttribute("data-class") || "";
+  let shopName = document.body.getAttribute("data-name") || "";
+  const html = `Online-Shop (Gruppe: ${groupValue.replace(/[^0-9]/g, '')}, Klasse: ${className})`
+  document.getElementById("header").innerHTML = html
+  getData(document.body.getAttribute("data-group"));
 
-  group.addEventListener("change", () => {
-    getData();
-  })
-
-  group.addEventListener("change", () => {
-    localStorage.setItem("group", group.value)
-  })
-
-  if (localStorage.getItem("group")) {
-    group.value = localStorage.getItem("group")
-  }
-  getData();
-
+  
 }
 
-function getData() {
+function getData( ) {
   document.getElementById("result").innerHTML = "";
 
   // SELECT * FROM Hauptkategorien;
-  const data = { group: group.value, query: "Hauptkategorien" }
-  group.disabled = true;
+  const data = { group: groupValue, query: "Hauptkategorien" }
+   
   fetch("/sql",
     {
       headers: {
@@ -35,11 +28,11 @@ function getData() {
     })
     .then((res) => { return res.json(); })
     .then((data) => {
-      group.disabled = false
+      
       renderData(data);
     })
     .catch((res) => {
-      group.disabled = false;
+     
       console.error(res)
     })
 }
@@ -55,7 +48,7 @@ function renderData(data) {
       a.appendChild(linkText);
       a.title = d.Name;
       let id = d.ID ? d.ID : d.HauptkategorienID
-      a.href = `maincat/?group=${group.value}&hauptkategorie_name=${d.Name}&hauptkategorie_id=${id}`;
+      a.href = `maincat/?group=${groupValue}&hauptkategorie_name=${d.Name}&hauptkategorie_id=${id}`;
       a.innerHTML += "<br>";
       document.getElementById("result").appendChild(a);
     })
@@ -74,7 +67,7 @@ function renderData(data) {
     data[2].forEach((d) => {
       filters[d.Name].push(d.Wert);
     })
-    console.log(filters)
+    //console.log(filters)
     for (let category in filters) {
       const label = document.createElement("label");
       label.innerHTML = category

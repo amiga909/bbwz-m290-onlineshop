@@ -72,6 +72,7 @@ const getGroupData = (pw = "") => {
   let result = null;
   const groups = Object.keys(dbConfig);
   groups.forEach( (g)=> {
+    console.log(dbConfig[g].con, ":" + pw + "@")
     if(dbConfig[g].con.includes(":" + pw + "@")) {
       result = {group: g, con: dbConfig[g].con, name: dbConfig[g].name, class: dbConfig[g].class };
     }

@@ -1,13 +1,16 @@
 const express = require("express");
+const session = require("express-session");
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const cors = require('cors')
 
 const DBClient = require("./srv/db-client");
 const app = express();
+app.use(session({ secret: 'xw   ef (sfefdsdf', saveUninitialized: true, resave: false }));
 app.use(bodyParser.json());
 
 const port = process.env.PORT || process.env.VCAP_APP_PORT || 3099;
+
 
 app.enable("trust proxy");
 
@@ -51,43 +54,51 @@ app.get("/index.html", (request, response) => {
 app.use(express.static(__dirname + "/public"));
 
 
-// routes: 
-
-// 
-
-// params: edit=true, pw=""
-
-
-// gruppe/edit/ 
-//  gruppe/edit/homepage 
-// gruppe/edit/haupt-kat 
-// gruppe/edit/detail
-app.get("/home", (request, response) => {
+app.get("/login", (request, response) => {
   const data = request.query;
-
   const pw = data.pw ? data.pw : "";
+  //console.log("login pw", pw, data)
+  const group = DBClient.getGroupData(pw);
+  // console.log("login",group,pw)
+  if (group && group.group) {
+    request.session.pw = pw;
+    
+    response.redirect('/home');
+  }
+  else {
+    response.redirect('/?invalidPw=1');
+    request.session.pw = "";
+  }
+  
+
+});
+app.get("/logout", (request, response) => {
+  request.session.pw = "";
+  response.redirect('/');
+});
+
+app.get("/home", (request, response) => {
+  const pw = request.session.pw;
   let html = "";
   const group = DBClient.getGroupData(pw);
-  console.log(group)
+   
   if (group && group.group) {
     html = fs.readFileSync(__dirname + "/public/src/home.html", "utf8");
     html = html.replace(/_GRUPPE_/g, group.group);
     html = html.replace(/_NAME_/g, group.name);
+    html = html.replace(/_KLASSE_/g, group.class);
     response.end(html);
   }
   else {
-    response.redirect('/login');
+    response.redirect('/?invalidPw=1');
+   
   }
-  
+
 
 
 });
 
-app.get("/login", (request, response) => {
-  const html = fs.readFileSync(__dirname + "/public/src/index_invalid_login.html", "utf8");
-  response.end(html);
-});
-
+ 
 app.get("/csv", (request, response) => {
   const html = fs.readFileSync(__dirname + "/public/src/csv.html", "utf8");
   response.end(html);

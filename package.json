@@ -16,11 +16,13 @@
     "csvtojson": "^2.0.10",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    
+    "express-session": "^1.17.2",
     "gridjs": "^5.0.2",
     "jquery": "^3.6.0",
     "mysql": "^2.18.1",
     "node-html-parser": "^5.1.0",
+    "nodemon": "^2.0.15",
+    "npm-watch": "^0.11.0",
     "parse-database-url": "^0.3.0",
     "purecss": "^2.0.6",
     "xml2js": "^0.4.23"
@@ -61,6 +63,7 @@
   },
   "scripts": {
     "start": "node ./index.js",
+    "start-watch": "nodemon --watch",
     "build": "rm -rf public/*; node_modules/.bin/webpack --mode production",
     "dev": "rm -rf public/*; webpack --mode development --watch",
     "lint": "node_modules/.bin/eslint ./src/js --fix --ext .js;",
