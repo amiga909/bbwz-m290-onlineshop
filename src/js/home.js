@@ -16,10 +16,7 @@ export default function init() {
 
 function getData( ) {
   document.getElementById("result").innerHTML = "";
-
-  // SELECT * FROM Hauptkategorien;
   const data = { group: groupValue, query: "Hauptkategorien" }
-   
   fetch("/sql",
     {
       headers: {
@@ -51,6 +48,7 @@ function renderData(data) {
       a.appendChild(linkText);
       a.title = d.Name;
       let id = d.ID ? d.ID : d.HauptkategorienID
+      id = id ? id: d.HauptkategorieID;
       a.href = `maincat/?group=${groupValue}&hauptkategorie_name=${d.Name}&hauptkategorie_id=${id}`;
       a.innerHTML += "<br>";
       document.getElementById("result").appendChild(a);

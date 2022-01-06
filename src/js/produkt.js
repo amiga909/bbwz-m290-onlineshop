@@ -52,7 +52,7 @@ function onSqlSubmit() {
     sql = sqlTextarea.placeholder;
   }
   sql = sql.replaceAll("$produktname", '"' + decodeURI(searchParams.produktname) + '"')
-  sql = sql.includes("LIMIT ") ? sql : sql.replace(";", " LIMIT 1000;")
+  //sql = sql.includes("LIMIT ") ? sql : sql.replace(";", " LIMIT 1000;")
   const data = { group: group.value, sql: sql, pw: pw.value }
   submit.disabled = true
   resultPane.innerHTML = "";
