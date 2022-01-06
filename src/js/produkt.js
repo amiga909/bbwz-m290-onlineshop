@@ -16,7 +16,7 @@ export default function init(params) {
   backToCatLink = document.getElementById("backToCat");
 
 
-  if (!searchParams || !searchParams.group || !searchParams.produktname || !searchParams.hauptkategorie_id) {
+  if (!searchParams  || !searchParams.produktname || !searchParams.hauptkategorie_id) {
     console.error("missing search params")
     return false;
   }
@@ -25,19 +25,14 @@ export default function init(params) {
 
   group.value = searchParams.group;
   group.disabled = true;
+  pw.disabled = true; 
+  pw.value=localStorage.getItem("pw")
   submit.addEventListener("click", () => {
     onSqlSubmit()
   })
 
 
-  pw.addEventListener("change", () => {
-    localStorage.setItem("pw", pw.value)
-  })
-
-  if (localStorage.getItem("pw")) {
-    pw.value = localStorage.getItem("pw")
-
-  }
+  
 
   sqlTextarea.addEventListener("change", () => {
     localStorage.setItem("sql_product", sqlTextarea.value)
@@ -51,12 +46,12 @@ export default function init(params) {
 }
 
 function onSqlSubmit() {
-  
+
   let sql = sqlTextarea.value;
   if (!sql) {
     sql = sqlTextarea.placeholder;
   }
-  sql = sql.replace("$produktname", '"' + decodeURI(searchParams.produktname) + '"')
+  sql = sql.replaceAll("$produktname", '"' + decodeURI(searchParams.produktname) + '"')
   sql = sql.includes("LIMIT ") ? sql : sql.replace(";", " LIMIT 1000;")
   const data = { group: group.value, sql: sql, pw: pw.value }
   submit.disabled = true
@@ -73,6 +68,7 @@ function onSqlSubmit() {
     .then((res) => { return res.json(); })
     .then((data) => {
       submit.disabled = false;
+     
       renderData(data, sql, resultPane)
 
     })

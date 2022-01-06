@@ -1,7 +1,6 @@
 import { Grid, html } from "gridjs";
 import "gridjs/dist/theme/mermaid.css";
 
-let grid = null;
 const TABLE_STYLE = {
   table: {
     border: '3px solid #ccc'
@@ -20,7 +19,7 @@ const TABLE_STYLE = {
 
 
 export default function renderData(data, sqlQueries, resultPane) {
- 
+
   const queries = sqlQueries.split(";").map((s) => { return s.trim(); })
   if (data.error) {
     resultPane.appendChild(renderSystemOutput(data));
@@ -35,7 +34,7 @@ export default function renderData(data, sqlQueries, resultPane) {
     return false;
   }
   data.forEach((sqlResult, index) => {
-    if(sqlResult.insertId === 0) {
+    if (sqlResult.insertId === 0) {
       return true;
     }
     if (Array.isArray(sqlResult)) {
@@ -58,29 +57,36 @@ export default function renderData(data, sqlQueries, resultPane) {
       resultPane.appendChild(renderSystemOutput(sqlResult));
     }
   })
-
-
-
-
-
 }
+
 function renderHtmlTable(tableHeaders, tableData) {
   const element = document.createElement("div");
   let formattedHeaders = []
   tableHeaders.forEach((header, index) => {
-    if (header.toLowerCase() === "link") {
-      formattedHeaders.push({
-        name: header,
-        formatter: (_, row) => html(`<a href='${row.cells[index].data}' target="blank">Externer Link</a>`)
 
-      })
-    }
+    formattedHeaders.push({
+      name: header,
+      formatter: (_, row) => {
+        let val = row.cells[index].data
+        if ((/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(val)) {
+          return html(`<img class="productImage" src='${row.cells[index].data}'> </img>`);
+        }
+        else if (String(val).startsWith("http")) {
+          return html(`<a target="blank" href='${row.cells[index].data}'>Link</a>`);
+        }
+        else if (header === "Detailseite") {
+          return html(`<a href='${row.cells[index].data}'>Detailseite</a>`);
+        }
+        else {
+          return val;
+        }
 
-    else {
-      formattedHeaders.push(header)
-    }
+
+      }
+    })
+
+
   })
-
 
   const config = {
     columns: formattedHeaders,

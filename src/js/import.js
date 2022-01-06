@@ -1,7 +1,7 @@
 import renderData from './sql-renderer'
 
 let resultPane;
-const METRICS_SQL = `SELECT table_name AS Tabelle, table_rows AS "Anzahl Zeilen", create_time as Erstellungsdatum
+const METRICS_SQL = `SELECT table_name AS Tabelle, (table_rows + 1) AS "Anzahl Zeilen", create_time as Erstellungsdatum
 FROM information_schema.tables
 WHERE table_schema !="information_schema";`
 
@@ -21,38 +21,24 @@ export default function init() {
 
 
   submit.addEventListener("click", () => {
-
+    resultPane.innerHTML = "";
     const customSql = { group: group.value, sql: sqlTextarea.value, pw: pw.value }
-    submit.disabled = true
     const results = []
     fetchSql(customSql).then((customResult) => {
       fetchSql(metricsSql).then((metricsResult) => {
-        if (customResult.error) {
-          renderData(customResult, "", resultPane)
-        }
-        else {
-          renderData(metricsResult, metricsSql.sql, resultPane)
-        }
-
-
+        renderData(customResult, customSql.sql, resultPane)
+        renderData(metricsResult, metricsSql.sql, resultPane)
       });
     })
   })
-
-  group.addEventListener("change", () => {
-    localStorage.setItem("group", group.value)
-  })
-  pw.addEventListener("change", () => {
-    localStorage.setItem("pw", pw.value)
-  })
-
+  submit.disabled = true;
   fetchSql(metricsSql).then((metricsResult) => {
     renderData(metricsResult, metricsSql.sql, resultPane)
   });;
 }
 
 function fetchSql(payload) {
-  resultPane.innerHTML = "";
+  submit.disabled = true
   return fetch("/sql",
     {
       headers: {

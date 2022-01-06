@@ -3,7 +3,7 @@ import renderData from './sql-renderer'
 
 let submit, group, sqlTextarea, pw, label, resultPane;
 let searchParams = null;
- 
+
 export default function init(params) {
   searchParams = params;
   submit = document.getElementById("submit");
@@ -26,14 +26,12 @@ export default function init(params) {
     onSqlSubmit()
   })
 
-
   pw.addEventListener("change", () => {
     localStorage.setItem("pw", pw.value)
   })
 
   if (localStorage.getItem("pw")) {
     pw.value = localStorage.getItem("pw")
-
   }
 
   sqlTextarea.addEventListener("change", () => {
@@ -48,7 +46,6 @@ export default function init(params) {
 }
 
 function onSqlSubmit() {
-  
   let sql = sqlTextarea.value;
   if (!sql) {
     sql = sqlTextarea.placeholder;
@@ -58,7 +55,7 @@ function onSqlSubmit() {
   const data = { group: group.value, sql: sql, pw: pw.value }
   submit.disabled = true
   resultPane.innerHTML = "";
- 
+
   fetch("/sql",
     {
       headers: {
@@ -70,6 +67,19 @@ function onSqlSubmit() {
     })
     .then((res) => { return res.json(); })
     .then((data) => {
+      console.log(data)
+      let products = data[1];
+      if (data[1] && data[1].length) {
+        data[1].forEach(row => {
+
+          let queryString = "";
+          for (const param in searchParams) {
+            queryString += `${param}=${searchParams[param]}&`
+          }
+          row["Detailseite"] = `/produkt?produktname=${row["Produktname"]}&${queryString}`
+
+        });
+      }
       submit.disabled = false
       renderData(data, sql, resultPane);
     })
@@ -79,4 +89,4 @@ function onSqlSubmit() {
     })
 }
 
- 
+

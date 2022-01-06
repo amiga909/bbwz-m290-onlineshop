@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Online Shops</title>
+      <title>Online-Shop Produkt Detailansicht</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
       <meta name="Description" CONTENT="">
       <meta charset="utf-8">
@@ -14,7 +14,7 @@
       <div class="header">
          Modul 290: Datenbanken abfragen und verändern (BBWZ, SJ 21/22)
       </div>
-      <a href="/">Home</a> <br>
+      <a href="/home">Home</a> <br>
       <a id="backToCat" href="#">Zurück zur Hauptkategorie</a> <br>
        
 
@@ -45,11 +45,14 @@
       </select>
       &nbsp;&nbsp;&nbsp; Passwort: <input id="pw" type="text"> 
       <h3>SQL</h3>
-      <textarea placeholder='-- Alte Spalten von Produkt für die ID
-SELECT * FROM Produkte WHERE Produktname = $produktname;' rows="5" cols="150" id="sql"></textarea>
+      <textarea placeholder='SELECT * FROM Produkte WHERE Produktname = $produktname;' rows="5" cols="150" id="sql"></textarea>
       <br>
       <p>
-         Aufgabe: coming soon. 
+        
+         <ul>
+            <li>SELECT * FROM Produkte WHERE Produktname = $produktname; <br>
+            Selektiert alle Produkte mit dem zuvor gewählten Produktnamen.</li>
+         </ul>
           
    
       </p>
@@ -59,6 +62,12 @@ SELECT * FROM Produkte WHERE Produktname = $produktname;' rows="5" cols="150" id
       </button>
       <br>
       <h3>Resultat</h3>
+      <style>
+         .productImage {
+            height:200px;
+            width: 200px;
+         }
+          </style>
       <div id="result"> </div>
    </body>
 </html>

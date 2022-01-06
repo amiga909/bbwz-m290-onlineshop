@@ -4,10 +4,13 @@ export default function init() {
   groupValue = document.body.getAttribute("data-group"); 
   let className = document.body.getAttribute("data-class") || "";
   let shopName = document.body.getAttribute("data-name") || "";
-  const html = `Online-Shop (Gruppe: ${groupValue.replace(/[^0-9]/g, '')}, Klasse: ${className})`
+  let html = `Online-Shop (Gruppe: ${groupValue.replace(/[^0-9]/g, '')}, Klasse: ${className})`
+  if(groupValue === "teacher") {
+    html = `Online-Shop Inline-Skates (Gruppe: Teacher)`
+  }
   document.getElementById("header").innerHTML = html
   getData(document.body.getAttribute("data-group"));
-
+  localStorage.setItem("group", groupValue)
   
 }
 

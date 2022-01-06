@@ -1,0 +1,64 @@
+
+-- Hauptkategorien 
+
+INSERT INTO Hauptkategorien (Name) VALUES ("Fitness Skates");
+INSERT INTO Hauptkategorien (Name) VALUES ("Hockey Skates");
+INSERT INTO Hauptkategorien (Name) VALUES ("Stunt Skates");
+
+-- Kategorien 
+
+INSERT INTO Kategorien (Name, Wert) VALUES ("Brand", "Adapt");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Brand", "Bauer");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Brand", "Rollerblade");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Schuhgrösse", "39");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Schuhgrösse", "41");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Schuhgrösse", "42");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Schuhgrösse", "43");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Schuhgrösse", "44");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Schuhgrösse", "45");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Farbe", "grau");
+INSERT INTO Kategorien (Name, Wert) VALUES ("Farbe", "schwarz");
+
+-- Produkte 
+
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Zetrablade", "150", "https://www.manor.ch/de/p/p0-35446403?", 1);
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Zetrablade", "150", "https://www.manor.ch/de/p/p0-35446403?", 1);
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Zetrablade", "150", "https://www.manor.ch/de/p/p0-35446403?", 1);
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Julian Bah Brutale", "450", "https://www.adaptbrand.com/product-page/signature-series-julian-bah-brutale-complete", 3);
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Julian Bah Brutale", "450", "https://www.adaptbrand.com/product-page/signature-series-julian-bah-brutale-complete", 3);
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Julian Bah Brutale", "450", "https://www.adaptbrand.com/product-page/signature-series-julian-bah-brutale-complete", 3);
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Inlinehockey Skate RS", "129.5", "https://www.amazon.de/Bauer-INLINEHOCKEY-Skate-RS-Senior/dp/B07NDS6FXY/", 2);
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Inlinehockey Skate RS", "129.5", "https://www.amazon.de/Bauer-INLINEHOCKEY-Skate-RS-Senior/dp/B07NDS6FXY/", 2);
+INSERT INTO Produkte (Produktname, Preis, Link, HauptkategorieID) VALUES ("Inlinehockey Skate RS", "129.5", "https://www.amazon.de/Bauer-INLINEHOCKEY-Skate-RS-Senior/dp/B07NDS6FXY/", 2);
+
+-- Produktkategorien 
+
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (1, 3);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (1, 4);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (1, 11);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (2, 3);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (2, 5);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (2, 11);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (3, 3);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (3, 6);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (3, 10);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (4, 1);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (4, 9);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (4, 10);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (5, 1);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (5, 5);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (5, 10);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (6, 1);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (6, 7);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (6, 10);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (7, 2);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (7, 5);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (7, 11);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (8, 2);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (8, 7);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (8, 11);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (9, 2);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (9, 8);
+INSERT INTO Produkte_Kategorien (ProduktID, KategorieID) VALUES (9, 11);
+
+  
