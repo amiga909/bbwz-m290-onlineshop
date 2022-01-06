@@ -43,22 +43,21 @@
         "name": "N & L Watches and Jewels", "class": "S-MMA19aL",
         "con": "mysql://b149ccabb7df17:92bbb63a@eu-cdbr-west-01.cleardb.com/heroku_e98431f71a8c44b?reconnect=true"
     },
-
-
+    
     "b1": {
-        "name": "rose", "class": "S-MMA19b",
+        "name": "Bijoux pour toi", "class": "S-MMA19b",
         "con": "mysql://ba2f44293c3371:6c332a71@eu-cdbr-west-01.cleardb.com/heroku_465ad9351dcca75?reconnect=true"
     },
     "b2": {
-        "name": "silver", "class": "S-MMA19b",
+        "name": "www.jonesandjack.shop", "class": "S-MMA19b",
         "con": "mysql://b428f7808b9f7a:92eae610@eu-cdbr-west-01.cleardb.com/heroku_0be6690238cfa5c?reconnect=true"
     },
     "b3": {
-        "name": "teal", "class": "S-MMA19b",
+        "name": "Skate Shack", "class": "S-MMA19b",
         "con": "mysql://b46e655cd6ebbc:9ab2bc35@eu-cdbr-west-01.cleardb.com/heroku_bc3a4b3b2bbc3b6?reconnect=true"
     },
     "b4": {
-        "name": "yellow", "class": "S-MMA19b",
+        "name": "deinSmartphone.ch", "class": "S-MMA19b",
         "con": "mysql://bb2cb7b520b9af:7226cc39@eu-cdbr-west-01.cleardb.com/heroku_58782f842d76e3f?reconnect=true"
     }
 } 
