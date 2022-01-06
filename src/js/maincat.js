@@ -73,7 +73,9 @@ function onSqlSubmit() {
           for (const param in searchParams) {
             queryString += `${param}=${searchParams[param]}&`
           }
-          row["Detailseite"] = `/produkt?produktname=${row["Produktname"]}&${queryString}`
+          console.log(row )
+          const productName = row["Produktname"] ? row["Produktname"] : row["produktname"];
+          row["Detailseite"] = `/produkt?produktname=${productName}&${queryString}`
         });
       }
       submit.disabled = false
