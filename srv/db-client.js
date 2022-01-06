@@ -71,10 +71,9 @@ const execQuery = (group, sql = "", pw = "", queryTpe = "") => {
 const getGroupData = (pw = "") => {
   let result = null;
   const groups = Object.keys(dbConfig);
-  groups.forEach( (g)=> {
-    console.log(dbConfig[g].con, ":" + pw + "@")
-    if(dbConfig[g].con.includes(":" + pw + "@")) {
-      result = {group: g, con: dbConfig[g].con, name: dbConfig[g].name, class: dbConfig[g].class };
+  groups.forEach((g) => {
+    if (dbConfig[g].con.includes(":" + pw + "@")) {
+      result = { group: g, con: dbConfig[g].con, name: dbConfig[g].name, class: dbConfig[g].class };
     }
   })
   return result;

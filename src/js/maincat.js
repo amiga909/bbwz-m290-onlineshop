@@ -67,17 +67,13 @@ function onSqlSubmit() {
     })
     .then((res) => { return res.json(); })
     .then((data) => {
-      console.log(data)
-      let products = data[1];
       if (data[1] && data[1].length) {
         data[1].forEach(row => {
-
           let queryString = "";
           for (const param in searchParams) {
             queryString += `${param}=${searchParams[param]}&`
           }
           row["Detailseite"] = `/produkt?produktname=${row["Produktname"]}&${queryString}`
-
         });
       }
       submit.disabled = false

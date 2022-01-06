@@ -1,20 +1,19 @@
 let groupValue = null;
 
 export default function init() {
-  groupValue = document.body.getAttribute("data-group"); 
+  groupValue = document.body.getAttribute("data-group");
   let className = document.body.getAttribute("data-class") || "";
   let shopName = document.body.getAttribute("data-name") || "";
-  let html = `Online-Shop (Gruppe: ${groupValue.replace(/[^0-9]/g, '')}, Klasse: ${className})`
-  if(groupValue === "teacher") {
+  let html = `Online-Shop "${shopName}" (Gruppe: ${groupValue.replace(/[^0-9]/g, '')}, Klasse: ${className})`
+  if (groupValue === "teacher") {
     html = `Online-Shop Inline-Skates (Gruppe: Teacher)`
   }
   document.getElementById("header").innerHTML = html
   getData(document.body.getAttribute("data-group"));
   localStorage.setItem("group", groupValue)
-  
 }
 
-function getData( ) {
+function getData() {
   document.getElementById("result").innerHTML = "";
   const data = { group: groupValue, query: "Hauptkategorien" }
   fetch("/sql",
@@ -28,11 +27,11 @@ function getData( ) {
     })
     .then((res) => { return res.json(); })
     .then((data) => {
-      
+
       renderData(data);
     })
     .catch((res) => {
-     
+
       console.error(res)
     })
 }
@@ -48,7 +47,7 @@ function renderData(data) {
       a.appendChild(linkText);
       a.title = d.Name;
       let id = d.ID ? d.ID : d.HauptkategorienID
-      id = id ? id: d.HauptkategorieID;
+      id = id ? id : d.HauptkategorieID;
       a.href = `maincat/?group=${groupValue}&hauptkategorie_name=${d.Name}&hauptkategorie_id=${id}`;
       a.innerHTML += "<br>";
       document.getElementById("result").appendChild(a);
@@ -83,7 +82,7 @@ function renderData(data) {
         option.text = val;
         select.appendChild(option);
       })
-     // document.getElementById("result").appendChild(label).appendChild(select)
+      // document.getElementById("result").appendChild(label).appendChild(select)
     }
 
     /*

@@ -3,44 +3,44 @@
         "name": "Inline Skates", 
         "con": "mysql://beff578ce34624:a0e7c751@eu-cdbr-west-01.cleardb.com/heroku_f590b77cf0d1850?reconnect=true"    },
     "al1": {
-        "name": "blue", 
+        "name": "Waifu 4 Life", 
         "class": "S-MMA19aL",
         "con": "mysql://b66e34613f8b35:08174d6b@eu-cdbr-west-01.cleardb.com/heroku_815d414bf58646b?reconnect=true"
     },
     "al2": {
-        "name": "bronze", "class": "S-MMA19aL",
+        "name": "igotyou.ch", "class": "S-MMA19aL",
         "con": "mysql://b18f0fbb286eb8:d317aac8@eu-cdbr-west-01.cleardb.com/heroku_e5627098f08b443?reconnect=true"
     },
     "al3": {
-        "name": "cyan", "class": "S-MMA19aL",
+        "name": "Chocolate Factory", "class": "S-MMA19aL",
         "con": "mysql://b6bb07702aa9af:b96c770c@eu-cdbr-west-01.cleardb.com/heroku_d97f1371b760328?reconnect=true"
     },
     "al4": {
-        "name": "gold", "class": "S-MMA19aL",
+        "name": "Fiducia", "class": "S-MMA19aL",
         "con": "mysql://b92aa6f9c8704a:2b0557e9@eu-cdbr-west-01.cleardb.com/heroku_092022631beb552?reconnect=true"
     },
     "al5": {
-        "name": "jade", "class": "S-MMA19aL",
+        "name": "Audanuis", "class": "S-MMA19aL",
         "con": "mysql://b5c887fee8be6f:bcd0a491@eu-cdbr-west-01.cleardb.com/heroku_b88118a2330cf9a?reconnect=true"
     },
     "al6": {
-        "name": "maroon", "class": "S-MMA19aL",
+        "name": "MultiTec", "class": "S-MMA19aL",
         "con": "mysql://bc8fedf593fec4:703faefc@eu-cdbr-west-01.cleardb.com/heroku_9bc62d47f4953c3?reconnect=true"
     },
     "al7": {
-        "name": "mauve", "class": "S-MMA19aL",
+        "name": "BLEIFREI Fashion", "class": "S-MMA19aL",
         "con": "mysql://b6bd9e334cc66d:c9e544ec@eu-cdbr-west-01.cleardb.com/heroku_871eb7583b74ec5?reconnect=true"
     },
     "al8": {
-        "name": "onyx", "class": "S-MMA19aL",
+        "name": "Moviebuster", "class": "S-MMA19aL",
         "con": "mysql://b297b39f1fe3b1:df1c85f2@eu-cdbr-west-01.cleardb.com/heroku_848b563e240d659?reconnect=true"
     },
     "al9": {
-        "name": "pink", "class": "S-MMA19aL",
+        "name": "Sneakers", "class": "S-MMA19aL",
         "con": "mysql://b17f99977d065e:b5609549@eu-cdbr-west-01.cleardb.com/heroku_56fa16d44fda6e1?reconnect=true"
     },
     "al10": {
-        "name": "red", "class": "S-MMA19aL",
+        "name": "N & L Watches and Jewels", "class": "S-MMA19aL",
         "con": "mysql://b149ccabb7df17:92bbb63a@eu-cdbr-west-01.cleardb.com/heroku_e98431f71a8c44b?reconnect=true"
     },
 
