@@ -17,6 +17,14 @@ export default function init() {
   if (localStorage.getItem("pw")) {
     pw.value = localStorage.getItem("pw")
   }
+  sqlTextarea.addEventListener("change", () => {
+    localStorage.setItem("importSql", sqlTextarea.value)
+  })
+
+  if (localStorage.getItem("importSql")) {
+    sqlTextarea.value = localStorage.getItem("importSql")
+
+  }
   const metricsSql = { group: group.value, sql: METRICS_SQL, pw: pw.value }
 
 
@@ -26,14 +34,14 @@ export default function init() {
     const results = []
     fetchSql(customSql).then((customResult) => {
       fetchSql(metricsSql).then((metricsResult) => {
-        renderData(customResult, customSql.sql, resultPane)
-        renderData(metricsResult, metricsSql.sql, resultPane)
+        renderData(customResult, customSql.sql, resultPane, {nohtml:true})
+        renderData(metricsResult, metricsSql.sql, resultPane, {nohtml:true})
       });
     })
   })
   submit.disabled = true;
   fetchSql(metricsSql).then((metricsResult) => {
-    renderData(metricsResult, metricsSql.sql, resultPane)
+    renderData(metricsResult, metricsSql.sql, resultPane, {nohtml:true})
   });;
 }
 

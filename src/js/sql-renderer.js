@@ -9,16 +9,16 @@ const TABLE_STYLE = {
     'background-color': 'rgba(0, 0, 0, 0.1)',
     color: '#000',
     'border-bottom': '3px solid #ccc',
-    'text-align': 'center'
+    'text-align': 'left'
   },
   td: {
-    'text-align': 'center'
+    'text-align': 'left'
   },
 
 };
 
 
-export default function renderData(data, sqlQueries, resultPane) {
+export default function renderData(data, sqlQueries, resultPane, options = { nohtml: false }) {
 
   const queries = sqlQueries.split(";").map((s) => { return s.trim(); })
   if (data.error) {
@@ -44,7 +44,7 @@ export default function renderData(data, sqlQueries, resultPane) {
         sqlResult.forEach((row) => {
           tableData.push(Object.values(row))
         })
-        resultPane.appendChild(renderHtmlTable(tableHeaders, tableData));
+        resultPane.appendChild(renderHtmlTable(tableHeaders, tableData, options.nohtml));
       }
       else {
         resultPane.appendChild(renderSystemOutput("Keine Resultate gefunden"));
@@ -59,7 +59,7 @@ export default function renderData(data, sqlQueries, resultPane) {
   })
 }
 
-function renderHtmlTable(tableHeaders, tableData) {
+function renderHtmlTable(tableHeaders, tableData, nohtml = false) {
   const element = document.createElement("div");
   let formattedHeaders = []
   tableHeaders.forEach((header, index) => {
@@ -67,12 +67,13 @@ function renderHtmlTable(tableHeaders, tableData) {
     formattedHeaders.push({
       name: header,
       formatter: (_, row) => {
-        let val = row.cells[index].data
+        let val = String(row.cells[index].data);
+        val = val.replace(/\r?\n|\r/, "");
         if ((/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(val)) {
           return html(`<img class="productImage" src='${row.cells[index].data}'> </img>`);
         }
-        else if (String(val).startsWith("http")) {
-          return html(`<a target="blank" href='${row.cells[index].data}'>Link</a>`);
+        else if (val.startsWith("http")) {
+          return html(`<a target="_blank" href='${row.cells[index].data}'>Externer Link</a>`);
         }
         else if (header === "Detailseite") {
           return html(`<a href='${row.cells[index].data}'>Detailseite</a>`);
@@ -89,7 +90,7 @@ function renderHtmlTable(tableHeaders, tableData) {
   })
 
   const config = {
-    columns: formattedHeaders,
+    columns: nohtml ? tableHeaders : formattedHeaders,
     data: tableData,
     // sort:true,
     style: TABLE_STYLE,

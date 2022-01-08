@@ -18,7 +18,8 @@
        
 
       <h1 id="Hauptkategorie_name">Hauptkategorie</h1>
-      <h3>Datenbank</h3>
+      <span style="display:none"> 
+         <h3>Datenbank</h3>
       Gruppenname:
       <select name="groups" id="groupSelect">
          <option value="teacher">teacher</option>
@@ -43,8 +44,9 @@
          <option value="c5">c5</option>
       </select>
       &nbsp;&nbsp;&nbsp; Passwort: <input disabled="true" id="pw" type="text"> 
+   </span> 
       <h3>SQL</h3>
-      <textarea placeholder='SELECT * FROM Produkte WHERE HauptkategorieID = $hauptkategorie_id;' rows="5" cols="150" id="sql"></textarea>
+      <textarea placeholder='SELECT * FROM Produkte WHERE HauptkategorieID = $hauptkategorie_id;' rows="10" cols="150" id="sql"></textarea>
       <br>
 <p>
  

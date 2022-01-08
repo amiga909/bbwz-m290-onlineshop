@@ -73,7 +73,7 @@ function onSqlSubmit() {
           for (const param in searchParams) {
             queryString += `${param}=${searchParams[param]}&`
           }
-          console.log(row )
+         
           const productName = row["Produktname"] ? row["Produktname"] : row["produktname"];
           row["Detailseite"] = `/produkt?produktname=${productName}&${queryString}`
         });
