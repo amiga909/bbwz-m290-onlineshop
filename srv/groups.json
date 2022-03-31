@@ -1,7 +1,16 @@
 ﻿{
     "teacher": {
         "name": "Inline Skates", 
-        "con": "mysql://beff578ce34624:a0e7c751@eu-cdbr-west-01.cleardb.com/heroku_f590b77cf0d1850?reconnect=true"    },
+        "con": "mysql://beff578ce34624:a0e7c751@eu-cdbr-west-01.cleardb.com/heroku_f590b77cf0d1850?reconnect=true"
+    },
+    "m291aL": {
+        "name": "Forms", "class": "S-MMA19aL",
+        "con": "mysql://b7089d7aa391a3:66420696@eu-cdbr-west-02.cleardb.net/heroku_1d8f26ece25c9bf?reconnect=true"
+    },
+    "m291b": {
+        "name": "Forms", "class": "S-MMA19b",
+        "con": "mysql://b7089d7aa391a3:66420696@eu-cdbr-west-02.cleardb.net/heroku_1d8f26ece25c9bf?reconnect=true"
+    },
     "al1": {
         "name": "Waifu 4 Life", 
         "class": "S-MMA19aL",
@@ -20,7 +29,7 @@
         "con": "mysql://b92aa6f9c8704a:2b0557e9@eu-cdbr-west-01.cleardb.com/heroku_092022631beb552?reconnect=true"
     },
     "al5": {
-        "name": "Audanuis", "class": "S-MMA19aL",
+        "name": "Audanius", "class": "S-MMA19aL",
         "con": "mysql://b5c887fee8be6f:bcd0a491@eu-cdbr-west-01.cleardb.com/heroku_b88118a2330cf9a?reconnect=true"
     },
     "al6": {
