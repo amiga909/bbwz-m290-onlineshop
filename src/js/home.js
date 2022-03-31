@@ -8,6 +8,10 @@ export default function init() {
   if (groupValue === "teacher") {
     html = `Online-Shop Inline-Skates (Gruppe: Teacher)`
   }
+  if (groupValue === "m291aL" || groupValue === "m291b") {
+    html = groupValue
+  }
+  
   document.getElementById("header").innerHTML = html
   getData(document.body.getAttribute("data-group"));
   localStorage.setItem("group", groupValue)
