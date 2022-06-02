@@ -1,10 +1,12 @@
+import renderData from './sql-renderer'
 let groupValue = null;
-
+let resultPane;
 export default function init() {
   groupValue = document.body.getAttribute("data-group");
   let className = document.body.getAttribute("data-class") || "";
   let shopName = document.body.getAttribute("data-name") || "";
   let html = `Online-Shop "${shopName}" (Gruppe: ${groupValue.replace(/[^0-9]/g, '')}, Klasse: ${className})`
+  resultPane = document.getElementById("result");
   if (groupValue === "teacher") {
     html = `Online-Shop Inline-Skates (Gruppe: Teacher)`
   }
@@ -19,7 +21,11 @@ export default function init() {
 
 function getData() {
   document.getElementById("result").innerHTML = "";
-  const data = { group: groupValue, query: "Hauptkategorien" }
+  const METRICS_SQL = `SELECT table_name AS Tabelle, (table_rows + 1) AS "Anzahl Zeilen", create_time as Erstellungsdatum
+FROM information_schema.tables
+WHERE table_schema !="information_schema";`
+const data = { group: groupValue , sql: METRICS_SQL, pw: localStorage.getItem("pw") }
+ 
   fetch("/sql",
     {
       headers: {
@@ -30,9 +36,9 @@ function getData() {
       body: JSON.stringify(data)
     })
     .then((res) => { return res.json(); })
-    .then((data) => {
-
-      renderData(data);
+    .then((result) => {
+      renderData(result, data.sql, resultPane, { nohtml: true })
+       
     })
     .catch((res) => {
 
@@ -41,8 +47,9 @@ function getData() {
 }
 
 
-
+/*
 function renderData(data) {
+  console.log("render data", data)
   //console.log(data, " Kategorien, Kategorien, Kategorien,")
   if (data && data[1]) {
     data[1].forEach((d) => {
@@ -58,12 +65,11 @@ function renderData(data) {
     })
   }
   else {
-    document.getElementById("result").innerHTML = "Keine Daten vorhanden";
+    document.getElementById("result").innerHTML = "Zuletzt verwendete Query:<br> "+ localStorage.getItem("importSql");
   }
 
   if (data && data[2]) {
-    const values = ["dog", "cat", "parrot", "rabbit"];
-
+    
     const filters = {};
     data[2].forEach((d) => {
       filters[d.Name] = [];
@@ -88,26 +94,8 @@ function renderData(data) {
       })
       // document.getElementById("result").appendChild(label).appendChild(select)
     }
-
-    /*
-    const labels = []; // all unique keys 
-    const values =
  
-    for (const val of values)
-    {
-        var option = document.createElement("option");
-        option.value = val;
-        option.text = val.charAt(0).toUpperCase() + val.slice(1);
-        select.appendChild(option);
-    }
- 
-    var label = document.createElement("label");
-    label.innerHTML = "Choose your pets: "
-    label.htmlFor = "pets";
- 
-    document.getElementById("container").appendChild(label).appendChild(select);
-    */
   }
 
 
-}
+}*/

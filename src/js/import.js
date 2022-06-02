@@ -34,14 +34,14 @@ export default function init() {
     const results = []
     fetchSql(customSql).then((customResult) => {
       fetchSql(metricsSql).then((metricsResult) => {
-        renderData(customResult, customSql.sql, resultPane, {nohtml:true})
-        renderData(metricsResult, metricsSql.sql, resultPane, {nohtml:true})
+        renderData(customResult, customSql.sql, resultPane, { nohtml: true })
+        renderData(metricsResult, metricsSql.sql, resultPane, { nohtml: true })
       });
     })
   })
   submit.disabled = true;
   fetchSql(metricsSql).then((metricsResult) => {
-    renderData(metricsResult, metricsSql.sql, resultPane, {nohtml:true})
+    renderData(metricsResult, metricsSql.sql, resultPane, { nohtml: true })
   });;
 }
 

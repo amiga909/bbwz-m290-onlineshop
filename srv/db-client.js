@@ -19,7 +19,7 @@ const execQuery = (group, sql = "", pw = "", queryTpe = "") => {
       reject("db config missing for " + group);
     }
 
-    const parsedConfig = parseDbUrl(dbConfig[group].con);
+    const parsedConfig = parseDbUrl(process.env[dbConfig[group].ENV]);
     parsedConfig.multipleStatements = true;
     // logik: wenn querytyoe, dann kein passwort 
     if (queryTpe && QUERIES[queryTpe]) {
@@ -69,13 +69,17 @@ const execQuery = (group, sql = "", pw = "", queryTpe = "") => {
 };
 
 const getGroupData = (pw = "") => {
+  console.log("pw", process.env)
   let result = null;
   const groups = Object.keys(dbConfig);
   groups.forEach((g) => {
-    if (dbConfig[g].con.includes(":" + pw + "@")) {
-      result = { group: g, con: dbConfig[g].con, name: dbConfig[g].name, class: dbConfig[g].class };
+    console.log(g, dbConfig[g], process.env[dbConfig[g].ENV])
+    const sqlQueryString = process.env[dbConfig[g].ENV] || ""
+    if (sqlQueryString.includes(":" + pw + "@")) {
+      result = { group: g, con: sqlQueryString, name: dbConfig[g].name, class: dbConfig[g].class };
     }
   })
+ // console.log("result", result)
   return result;
 };
 

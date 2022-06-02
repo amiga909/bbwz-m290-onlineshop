@@ -81,6 +81,7 @@ app.get("/home", (request, response) => {
   const pw = request.session.pw;
   let html = "";
   const group = DBClient.getGroupData(pw);
+ // console.log("group /home", group)
    
   if (group && group.group) {
     html = fs.readFileSync(__dirname + "/public/src/home.html", "utf8");
@@ -97,8 +98,11 @@ app.get("/home", (request, response) => {
 
 
 });
-
- 
+app.get("/import", (request, response) => {
+  const html = fs.readFileSync(__dirname + "/public/src/import.html", "utf8");
+  response.end(html);
+});
+ /*
 app.get("/csv", (request, response) => {
   const html = fs.readFileSync(__dirname + "/public/src/csv.html", "utf8");
   response.end(html);
@@ -116,13 +120,13 @@ app.get("/produkt", (request, response) => {
   const html = fs.readFileSync(__dirname + "/public/src/produkt.html", "utf8");
   response.end(html);
 });
-
+*/
 
 
 app.post("/sql", (request, response) => {
   const data = request.body;
   //console.log("/sql data", request.body)
-
+console.log("sql data", data)
   if (data.group) {
     const pw = data.pw ? data.pw : "";
     const query = data.query ? data.query : "";
@@ -132,6 +136,7 @@ app.post("/sql", (request, response) => {
       response.setHeader("Content-Type", "application/json");
       response.end(JSON.stringify(res));
     }).catch((err) => {
+      console.log("errrrrr",err)
       response.json({ error: err })
 
     });

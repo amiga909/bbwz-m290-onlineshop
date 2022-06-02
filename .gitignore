@@ -4,3 +4,4 @@ _gitignore/
 .DS_Store
 ahrefs/
 .env
+_group_pws.txt
