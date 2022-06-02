@@ -44,12 +44,12 @@
        "ENV":"CLEARDB_CRIMSON_URL"
     },
     "al9":{
-       "name":"Sneakers",
+       "name":"N & L Watches and Jewels",
        "class":"S-MMA19aL",
        "ENV":"CLEARDB_COBALT_URL"
     },
     "al10":{
-       "name":"N & L Watches and Jewels",
+       "name":"Sneakers",
        "class":"S-MMA19aL",
        "ENV":"CLEARDB_CHARCOAL_URL"
     },
