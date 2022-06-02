@@ -5,15 +5,17 @@ export default function init() {
   groupValue = document.body.getAttribute("data-group");
   let className = document.body.getAttribute("data-class") || "";
   let shopName = document.body.getAttribute("data-name") || "";
+  let dbName = document.body.getAttribute("data-dbname") || "";
   let html = `Online-Shop "${shopName}" (Gruppe: ${groupValue.replace(/[^0-9]/g, '')}, Klasse: ${className})`
   resultPane = document.getElementById("result");
+  document.getElementById("dbname").innerHTML = dbName;
   if (groupValue === "teacher") {
     html = `Online-Shop Inline-Skates (Gruppe: Teacher)`
   }
   if (groupValue === "m291aL" || groupValue === "m291b") {
     html = groupValue
   }
-  
+
   document.getElementById("header").innerHTML = html
   getData(document.body.getAttribute("data-group"));
   localStorage.setItem("group", groupValue)
@@ -24,8 +26,8 @@ function getData() {
   const METRICS_SQL = `SELECT table_name AS Tabelle, (table_rows + 1) AS "Anzahl Zeilen", create_time as Erstellungsdatum
 FROM information_schema.tables
 WHERE table_schema !="information_schema";`
-const data = { group: groupValue , sql: METRICS_SQL, pw: localStorage.getItem("pw") }
- 
+  const data = { group: groupValue, sql: METRICS_SQL, pw: localStorage.getItem("pw") }
+
   fetch("/sql",
     {
       headers: {
@@ -38,7 +40,7 @@ const data = { group: groupValue , sql: METRICS_SQL, pw: localStorage.getItem("p
     .then((res) => { return res.json(); })
     .then((result) => {
       renderData(result, data.sql, resultPane, { nohtml: true })
-       
+
     })
     .catch((res) => {
 

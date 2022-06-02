@@ -88,6 +88,8 @@ app.get("/home", (request, response) => {
     html = html.replace(/_GRUPPE_/g, group.group);
     html = html.replace(/_NAME_/g, group.name);
     html = html.replace(/_KLASSE_/g, group.class);
+    
+    html = html.replace(/_ENV_/g, group.ENV, group);
     response.end(html);
   }
   else {

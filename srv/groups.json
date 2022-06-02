@@ -7,6 +7,59 @@
         "name": "Waifu 4 Life", 
         "class": "S-MMA19aL",
         "ENV": "CLEARDB_ROSE_URL"
+    },
+    "al2": {
+        "name": "igotyou.ch", "class": "S-MMA19aL",
+        "ENV": "CLEARDB_PUCE_URL"
+    },
+    "al3": {
+        "name": "Chocolate Factory", "class": "S-MMA19aL",
+        "ENV": "CLEARDB_ORANGE_URL"
+    },
+    "al4": {
+        "name": "Fiducia", "class": "S-MMA19aL",
+        "ENV": "CLEARDB_ONYX_URL"
+    },
+    "al5": {
+        "name": "Audanius", "class": "S-MMA19aL",
+        "con": "CLEARDB_IVORY_URL"
+    },
+    "al6": {
+        "name": "MultiTec", "class": "S-MMA19aL",
+        "ENV": "CLEARDB_GRAY_URL"
+    },
+    "al7": {
+        "name": "BLEIFREI Fashion", "class": "S-MMA19aL",
+        "ENV": "CLEARDB_CYAN_URL"
+    },
+    "al8": {
+        "name": "Moviebuster", "class": "S-MMA19aL",
+        "ENV": "CLEARDB_CRIMSON_URL"
+    },
+    "al9": {
+        "name": "Sneakers", "class": "S-MMA19aL",
+        "con": "CLEARDB_COBALT_URL"
+    },
+    "al10": {
+        "name": "N & L Watches and Jewels", "class": "S-MMA19aL",
+        "ENV": "CLEARDB_CHARCOAL_URL"
+    },
+    
+    "b1": {
+        "name": "Bijoux pour toi", "class": "S-MMA19b",
+        "ENV": "CLEARDB_BROWN_URL"
+    },
+    "b2": {
+        "name": "www.jonesandjack.shop", "class": "S-MMA19b",
+        "ENV": "CLEARDB_BRONZE_URL"
+    },
+    "b3": {
+        "name": "Skate Shack", "class": "S-MMA19b",
+        "ENV": "CLEARDB_BLUE_URL"
+    },
+    "b4": {
+        "name": "deinSmartphone.ch", "class": "S-MMA19b",
+        "ENV": "CLEARDB_BLACK_URL"
     }
 } 
   

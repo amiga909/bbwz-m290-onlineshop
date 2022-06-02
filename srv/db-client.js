@@ -76,7 +76,7 @@ const getGroupData = (pw = "") => {
     console.log(g, dbConfig[g], process.env[dbConfig[g].ENV])
     const sqlQueryString = process.env[dbConfig[g].ENV] || ""
     if (sqlQueryString.includes(":" + pw + "@")) {
-      result = { group: g, con: sqlQueryString, name: dbConfig[g].name, class: dbConfig[g].class };
+      result = { group: g, con: sqlQueryString, name: dbConfig[g].name, class: dbConfig[g].class, ENV:dbConfig[g].ENV };
     }
   })
  // console.log("result", result)
