@@ -51,7 +51,7 @@ WHERE table_schema !="information_schema";`
 
 /*
 function renderData(data) {
-  console.log("render data", data)
+  //console.log("render data", data)
   //console.log(data, " Kategorien, Kategorien, Kategorien,")
   if (data && data[1]) {
     data[1].forEach((d) => {

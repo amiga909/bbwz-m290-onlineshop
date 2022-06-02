@@ -62,14 +62,14 @@ app.get("/login", (request, response) => {
   // console.log("login",group,pw)
   if (group && group.group) {
     request.session.pw = pw;
-    
+
     response.redirect('/home');
   }
   else {
     response.redirect('/?invalidPw=1');
     request.session.pw = "";
   }
-  
+
 
 });
 app.get("/logout", (request, response) => {
@@ -81,20 +81,20 @@ app.get("/home", (request, response) => {
   const pw = request.session.pw;
   let html = "";
   const group = DBClient.getGroupData(pw);
- // console.log("group /home", group)
-   
+  // console.log("group /home", group)
+
   if (group && group.group) {
     html = fs.readFileSync(__dirname + "/public/src/home.html", "utf8");
     html = html.replace(/_GRUPPE_/g, group.group);
     html = html.replace(/_NAME_/g, group.name);
     html = html.replace(/_KLASSE_/g, group.class);
-    
+
     html = html.replace(/_ENV_/g, group.ENV, group);
     response.end(html);
   }
   else {
     response.redirect('/?invalidPw=1');
-   
+
   }
 
 
@@ -104,23 +104,23 @@ app.get("/import", (request, response) => {
   const html = fs.readFileSync(__dirname + "/public/src/import.html", "utf8");
   response.end(html);
 });
- /*
+/*
 app.get("/csv", (request, response) => {
-  const html = fs.readFileSync(__dirname + "/public/src/csv.html", "utf8");
-  response.end(html);
+ const html = fs.readFileSync(__dirname + "/public/src/csv.html", "utf8");
+ response.end(html);
 });
 app.get("/import", (request, response) => {
-  const html = fs.readFileSync(__dirname + "/public/src/import.html", "utf8");
-  response.end(html);
+ const html = fs.readFileSync(__dirname + "/public/src/import.html", "utf8");
+ response.end(html);
 });
 app.get("/maincat", (request, response) => {
-  const html = fs.readFileSync(__dirname + "/public/src/maincat.html", "utf8");
-  response.end(html);
+ const html = fs.readFileSync(__dirname + "/public/src/maincat.html", "utf8");
+ response.end(html);
 });
 
 app.get("/produkt", (request, response) => {
-  const html = fs.readFileSync(__dirname + "/public/src/produkt.html", "utf8");
-  response.end(html);
+ const html = fs.readFileSync(__dirname + "/public/src/produkt.html", "utf8");
+ response.end(html);
 });
 */
 
@@ -128,7 +128,7 @@ app.get("/produkt", (request, response) => {
 app.post("/sql", (request, response) => {
   const data = request.body;
   //console.log("/sql data", request.body)
-console.log("sql data", data)
+
   if (data.group) {
     const pw = data.pw ? data.pw : "";
     const query = data.query ? data.query : "";
@@ -138,7 +138,7 @@ console.log("sql data", data)
       response.setHeader("Content-Type", "application/json");
       response.end(JSON.stringify(res));
     }).catch((err) => {
-      console.log("errrrrr",err)
+      console.log("errrrrr", err)
       response.json({ error: err })
 
     });

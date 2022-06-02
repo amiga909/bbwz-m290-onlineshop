@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <title>Online Shops</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-      <meta name="Description" CONTENT="">
-      <meta charset="utf-8">
-   </head>
-   <body>
-      
-      
-      <script>
-         //Eigene Gruppe, Passwort und SQL eingeben
-         const data = { group: "teacher", sql: "SELECT * FROM Hauptkategorien", pw: "a0e7c751" }
 
-         fetch("https://bbwz-m290-onlineshop.herokuapp.com/sql",
+<head>
+   <title>Online Shops</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+   <meta name="Description" CONTENT="">
+   <meta charset="utf-8">
+</head>
+
+<body>
+
+
+   <script>
+      //Eigene Gruppe, Passwort und SQL eingeben
+      const data = { group: "teacher", sql: "SELECT * FROM Hauptkategorien", pw: "a0e7c751" }
+
+      fetch("https://bbwz-m290-onlineshop.herokuapp.com/sql",
          {
             headers: {
                'Accept': 'application/json',
@@ -30,16 +32,17 @@
             console.error(res)
          })
 
-         function renderData(data) {
-            if (data && data[1]) {
-               data[1].forEach( (row)=> {
-                  console.log(row)
-               })
-               const prettyJson = JSON.stringify(data[1], null, 2);
-               document.body.innerHTML = prettyJson;
-            }
+      function renderData(data) {
+         if (data && data[1]) {
+            data[1].forEach((row) => {
+               // console.log(row)
+            })
+            const prettyJson = JSON.stringify(data[1], null, 2);
+            document.body.innerHTML = prettyJson;
          }
-      </script>
+      }
+   </script>
 
-   </body>
+</body>
+
 </html>
