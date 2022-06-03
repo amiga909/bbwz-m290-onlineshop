@@ -31,7 +31,7 @@
     "al6":{
        "name":"MultiTec",
        "class":"S-MMA19aL",
-       "ENV":"CLEARDB_GRAY_URL"
+       "ENV":"CLEARDB_PURPLE_URL"
     },
     "al7":{
        "name":"BLEIFREI Fashion",
