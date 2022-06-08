@@ -65,7 +65,7 @@
     "start-watch": "nodemon --watch",
     "build": "rm -rf public/*;  npm run copy-assets; node_modules/.bin/webpack --mode production",
     "dev": "rm -rf public/*; npm run copy-assets; webpack --mode development --watch",
-    "copy-assets": "cp -r src/*.html public/ & cp -r src/assets public/assets/",
+    "copy-assets": "mkdir -p public/src & cp -r src/*.html public/src/ & cp -r src/assets public/src/assets/",
     "lint": "node_modules/.bin/eslint ./src/js --fix --ext .js;",
     "lint-srv": "node_modules/.bin/eslint ./srv --fix --ext .js && node_modules/.bin/eslint index.js --fix --ext .js;",
     "resetDB": "node srv/resetDB.js"

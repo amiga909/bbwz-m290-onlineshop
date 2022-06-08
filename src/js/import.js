@@ -34,19 +34,27 @@ export default function init() {
       pw: pw.value,
     };
     const results = [];
-    resultPane.classList.add("loader")
+    resultPane.classList.add("loader");
     fetchSql(customSql).then((customResult) => {
       fetchSql(metricsSql).then((metricsResult) => {
-        resultPane.classList.remove("loader")
-        renderData(customResult, customSql.sql, resultPane, { nohtml: true, title: "" });
-        renderData(metricsResult, metricsSql.sql, resultPane, { nohtml: true, title: "Tabellen Übersicht" });
-
+        resultPane.classList.remove("loader");
+        renderData(customResult, customSql.sql, resultPane, {
+          nohtml: true,
+          title: "",
+        });
+        renderData(metricsResult, metricsSql.sql, resultPane, {
+          nohtml: true,
+          title: "Tabellen Übersicht",
+        });
       });
     });
   });
   submit.disabled = true;
   fetchSql(metricsSql).then((metricsResult) => {
-    renderData(metricsResult, metricsSql.sql, resultPane, { nohtml: true, title: "Tabellen Übersicht"});
+    renderData(metricsResult, metricsSql.sql, resultPane, {
+      nohtml: true,
+      title: "Tabellen Übersicht",
+    });
   });
 }
 

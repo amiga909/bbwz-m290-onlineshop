@@ -64,7 +64,9 @@ app.use(express.static(__dirname + "/public"));
 app.get("/login", (request, response) => {
   const data = request.query;
   const pw = data.pw ? data.pw : "";
+  //console.log("login pw", pw, data)
   const group = DBClient.getGroupData(pw);
+  // console.log("login",group,pw)
   if (group && group.group) {
     request.session.pw = pw;
 
@@ -83,9 +85,10 @@ app.get("/home", (request, response) => {
   const pw = request.session.pw;
   let html = "";
   const group = DBClient.getGroupData(pw);
+  // console.log("group /home", group)
 
   if (group && group.group) {
-    html = fs.readFileSync(__dirname + "/public/home.html", "utf8");
+    html = fs.readFileSync(__dirname + "/public/src/home.html", "utf8");
     html = html.replace(/_GRUPPE_/g, group.group);
     html = html.replace(/_NAME_/g, group.name);
     html = html.replace(/_KLASSE_/g, group.class);
@@ -97,20 +100,20 @@ app.get("/home", (request, response) => {
   }
 });
 app.get("/import", (request, response) => {
-  const html = fs.readFileSync(__dirname + "/public/import.html", "utf8");
+  const html = fs.readFileSync(__dirname + "/public/src/import.html", "utf8");
   response.end(html);
 });
 /*
 app.get("/csv", (request, response) => {
- const html = fs.readFileSync(__dirname + "/public/csv.html", "utf8");
+ const html = fs.readFileSync(__dirname + "/public/src/csv.html", "utf8");
  response.end(html);
 });
 app.get("/import", (request, response) => {
- const html = fs.readFileSync(__dirname + "/public/import.html", "utf8");
+ const html = fs.readFileSync(__dirname + "/public/src/import.html", "utf8");
  response.end(html);
 });
 app.get("/maincat", (request, response) => {
- const html = fs.readFileSync(__dirname + "/public/maincat.html", "utf8");
+ const html = fs.readFileSync(__dirname + "/public/src/maincat.html", "utf8");
  response.end(html);
 });
 
@@ -122,6 +125,7 @@ app.get("/produkt", (request, response) => {
 
 app.post("/sql", (request, response) => {
   const data = request.body;
+  //console.log("/sql data", request.body)
 
   if (data.group) {
     const pw = data.pw ? data.pw : "";
@@ -134,6 +138,7 @@ app.post("/sql", (request, response) => {
         response.end(JSON.stringify(res));
       })
       .catch((err) => {
+        console.log("errrrrr", err);
         response.json({ error: err });
       });
   } else {
