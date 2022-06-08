@@ -1,6 +1,5 @@
 const path = require("path");
-const webpack = require("webpack");
-const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack"); 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const outputPath = "public/";
@@ -20,15 +19,7 @@ module.exports = (env = {}, argv) => {
         jQuery: "jquery",
         "window.jQuery": "jquery",
       }),
-
-      // for injectManifest
-      new CopyPlugin({
-        patterns: [
-          { from: "src/assets", to: "assets" },
-          { from: "src/*.html", to: "./" },
-         
-        ],
-      }),
+      
     ],
     output: {
       path: path.resolve(__dirname, outputPath),

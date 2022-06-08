@@ -1,4 +1,4 @@
-import renderData from './sql-renderer'
+import renderData from "./sql-renderer";
 let groupValue = null;
 let resultPane;
 export default function init() {
@@ -6,48 +6,77 @@ export default function init() {
   let className = document.body.getAttribute("data-class") || "";
   let shopName = document.body.getAttribute("data-name") || "";
   let dbName = document.body.getAttribute("data-dbname") || "";
-  let html = `Online-Shop "${shopName}" (Gruppe: ${groupValue.replace(/[^0-9]/g, '')}, Klasse: ${className})`
+  let html = `Online-Shop "${shopName}" (Gruppe: ${groupValue.replace(
+    /[^0-9]/g,
+    ""
+  )}, Klasse: ${className})`;
   resultPane = document.getElementById("result");
   document.getElementById("dbname").innerHTML = dbName;
   if (groupValue === "teacher") {
-    html = `Online-Shop Inline-Skates (Gruppe: Teacher)`
+    html = `Online-Shop Inline-Skates (Gruppe: Teacher)`;
   }
   if (groupValue === "m291aL" || groupValue === "m291b") {
-    html = groupValue
+    html = groupValue;
   }
 
-  document.getElementById("header").innerHTML = html
+  document.getElementById("header").innerHTML = html;
   getData(document.body.getAttribute("data-group"));
-  localStorage.setItem("group", groupValue)
+  localStorage.setItem("group", groupValue);
 }
 
 function getData() {
   document.getElementById("result").innerHTML = "";
-  const METRICS_SQL = `SELECT table_name AS Tabelle, create_time as Erstellungsdatum
+  const METRICS_SQL = `SELECT table_name
 FROM information_schema.tables
-WHERE table_schema !="information_schema";`
-  const data = { group: groupValue, sql: METRICS_SQL, pw: localStorage.getItem("pw") }
+WHERE table_schema !="information_schema";`;
+  const data = {
+    group: groupValue,
+    sql: METRICS_SQL,
+    pw: localStorage.getItem("pw"),
+  };
 
-  fetch("/sql",
-    {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      body: JSON.stringify(data)
+  fetch("/sql", {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      return res.json();
     })
-    .then((res) => { return res.json(); })
     .then((result) => {
-      renderData(result, data.sql, resultPane, { nohtml: true })
-
+      if (result[1]) {
+        result[1].map((res) => {
+          console.log("res", res.table_name);
+          data.sql = `SELECT * FROM ${res.table_name}`;
+          console.log(" data.sql", data.sql);
+          fetch("/sql", {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(data),
+          })
+            .then((res) => {
+              return res.json();
+            })
+            .then((result) => {
+              renderData(result, data.sql, resultPane, {
+                nohtml: true,
+                title: "Tabelle " + res.table_name,
+              });
+            });
+        });
+      }
+      console.log(result);
     })
     .catch((res) => {
-
-      console.error(res)
-    })
+      console.error(res);
+    });
 }
-
 
 /*
 function renderData(data) {

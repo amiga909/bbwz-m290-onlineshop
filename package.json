@@ -34,7 +34,6 @@
     "autoprefixer": "^10.4.7",
     "@babel/eslint-parser": "^7.18.2",
     "babel-loader": "^8.2.5",
-    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "eslint": "^8.16.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -64,8 +63,9 @@
   "scripts": {
     "start": "node ./index.js",
     "start-watch": "nodemon --watch",
-    "build": "rm -rf public/*; node_modules/.bin/webpack --mode production",
-    "dev": "rm -rf public/*; webpack --mode development --watch",
+    "build": "rm -rf public/*;  npm run copy-assets; node_modules/.bin/webpack --mode production",
+    "dev": "rm -rf public/*; npm run copy-assets; webpack --mode development --watch",
+    "copy-assets": "cp -r src/*.html public/ & cp -r src/assets public/assets/",
     "lint": "node_modules/.bin/eslint ./src/js --fix --ext .js;",
     "lint-srv": "node_modules/.bin/eslint ./srv --fix --ext .js && node_modules/.bin/eslint index.js --fix --ext .js;",
     "resetDB": "node srv/resetDB.js"
