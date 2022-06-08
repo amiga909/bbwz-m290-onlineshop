@@ -64,9 +64,7 @@ app.use(express.static(__dirname + "/public"));
 app.get("/login", (request, response) => {
   const data = request.query;
   const pw = data.pw ? data.pw : "";
-  //console.log("login pw", pw, data)
   const group = DBClient.getGroupData(pw);
-  // console.log("login",group,pw)
   if (group && group.group) {
     request.session.pw = pw;
 
@@ -85,7 +83,6 @@ app.get("/home", (request, response) => {
   const pw = request.session.pw;
   let html = "";
   const group = DBClient.getGroupData(pw);
-  // console.log("group /home", group)
 
   if (group && group.group) {
     html = fs.readFileSync(__dirname + "/public/home.html", "utf8");
@@ -125,7 +122,6 @@ app.get("/produkt", (request, response) => {
 
 app.post("/sql", (request, response) => {
   const data = request.body;
-  //console.log("/sql data", request.body)
 
   if (data.group) {
     const pw = data.pw ? data.pw : "";
@@ -138,7 +134,6 @@ app.post("/sql", (request, response) => {
         response.end(JSON.stringify(res));
       })
       .catch((err) => {
-        console.log("errrrrr", err);
         response.json({ error: err });
       });
   } else {
