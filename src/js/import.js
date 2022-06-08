@@ -1,7 +1,7 @@
 import renderData from './sql-renderer'
 
 let resultPane;
-const METRICS_SQL = `SELECT table_name AS Tabelle, (table_rows) AS "Anzahl Zeilen", create_time as Erstellungsdatum
+const METRICS_SQL = `SELECT table_name AS Tabelle, create_time as Erstellungsdatum
 FROM information_schema.tables
 WHERE table_schema !="information_schema";`
 

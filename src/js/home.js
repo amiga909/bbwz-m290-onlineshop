@@ -23,7 +23,7 @@ export default function init() {
 
 function getData() {
   document.getElementById("result").innerHTML = "";
-  const METRICS_SQL = `SELECT table_name AS Tabelle, (table_rows) AS "Anzahl Zeilen", create_time as Erstellungsdatum
+  const METRICS_SQL = `SELECT table_name AS Tabelle, create_time as Erstellungsdatum
 FROM information_schema.tables
 WHERE table_schema !="information_schema";`
   const data = { group: groupValue, sql: METRICS_SQL, pw: localStorage.getItem("pw") }
